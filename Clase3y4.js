@@ -16,4 +16,19 @@ pago
     console.log("FRACASO")
 })
 
-console.log("fin")
+
+//ASYNC AWAIT
+async function main(){
+    let traerMisAlumnos = ()=>{
+        return new Promise((res, rej)=>{
+        setTimeout(() => {
+            res(["joaquin","claudito",'maykel']);
+        }, 4000);
+    })
+    }
+
+    let respDeAlumnos = await traerMisAlumnos(); //PONIENDO EL AWAIT, SE ESPERA QUE SE EJECUTE TODO LO QUE ESTA ARRIBITA
+    console.log(respDeAlumnos);
+}
+
+main();
