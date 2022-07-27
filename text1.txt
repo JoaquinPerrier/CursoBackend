@@ -1,0 +1,35 @@
+I´M BACKK
+FROM HELL
+
+[
+    {
+        "title":"sopa",
+        "price":120,
+        "thumbnail":"www.img.com/sopa.jpg",
+        "id":1
+    },
+    {
+        "title":"arroz",
+        "price":160,
+        "thumbnail":"www.img.com/arroz.jpg",
+        "id":2
+    },
+    {
+        "title":"maiz",
+        "price":445,
+        "thumbnail":"www.img.com/maiz.jpg",
+        "id":3
+    },
+    {
+        "title":"soda",
+        "price":125,
+        "thumbnail":"www.img.com/soda.jpg",
+        "id":4
+    },
+    {
+        "title":"leche",
+        "price":145,
+        "thumbnail":"www.img.com/leche.jpg",
+        "id":5
+    }
+]
