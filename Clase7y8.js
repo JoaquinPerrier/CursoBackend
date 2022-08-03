@@ -56,6 +56,7 @@ let productos = [
 //GET CON QUERY TIPO SEARCH (OJO QUE ES EL MISMO!)
 app.get("/products", (req, res) => {
   const { query } = req;
+  // http://localhost:8080/products?price=varPrecio PARA ENVIARLE UNA QUERY. SI NO, ENVIA TODOS LOS PROD
   console.log(query);
   if (query.price) {
     res.json(productos.filter((el) => el.price == query.price));
