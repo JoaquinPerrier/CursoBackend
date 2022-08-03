@@ -35,9 +35,9 @@ async function main(){
 main();*/
 
 // CLASE 4: FILES IN NODE
-const fs = require('fs');
+const fs = require("fs");
 
-    /* DE MANERA SINCRONICA*/
+/* DE MANERA SINCRONICA*/
 // LEER ARCHIVO
 // const data = fs.readFileSync('./text1.txt',"utf-8");
 // console.log(data);
@@ -53,15 +53,14 @@ const fs = require('fs');
 
 //  MANEJO DE ERRORES
 //try{
-    // No existe este archivo
+// No existe este archivo
 //    fs.unlink('/text123.txt');
 //    console.log("Archivo borrado");
 //}catch (err){
 //    console.log("ERROR");
 //}
 
-
-    /* DE MANERA ASINCRONICA*/
+/* DE MANERA ASINCRONICA*/
 // LEER ARCHIVO
 // fs.readFile('./text1.txt',"utf-8",(err,contenido)=>{
 //     if (err){
@@ -90,10 +89,10 @@ const fs = require('fs');
 // })
 
 // BORRA ARCHIVO
-fs.unlink('./text1.txt',(err)=>{
-    if (err){
-        console.log("ERROR")
-    } else{
-        console.log("ARCHIVITO BORRADO")
-    }
-})
+fs.unlink("./text1.txt", (err) => {
+  if (err) {
+    console.log("ERROR");
+  } else {
+    console.log("ARCHIVITO BORRADO");
+  }
+});

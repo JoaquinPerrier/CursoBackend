@@ -8,7 +8,6 @@
 // Incrementar la edad en 1 y volver a mostrarla
 // Agregar una serie a la lista y volver a mostrarla
 
-
 // let nombre = "pepe";
 // let edad = 25;
 // let precio = 99.90;
@@ -65,27 +64,26 @@
 
 // persona.presentar();
 
-
 class Persona {
-    constructor(nombre, edad) {
-      this.nombre = nombre;
-      this.edad = edad;
-    }
-  
-    getFullname() {
-        return this.nombre + " " + this.apellido;
-    }    
-
-    hablar() {
-      console.log("hola");
-    }
-    contameDeVos() {
-      console.log(`Yo soy ${this.nombre} y tengo ${this.edad}`);
-    }
+  constructor(nombre, edad) {
+    this.nombre = nombre;
+    this.edad = edad;
   }
-  
-  const persona = new Persona("pepe", 5);
-  const persona2 = new Persona("guille", 40);
-  
-  persona.contameDeVos();
-  persona2.contameDeVos();
+
+  getFullname() {
+    return this.nombre + " " + this.apellido;
+  }
+
+  hablar() {
+    console.log("hola");
+  }
+  contameDeVos() {
+    console.log(`Yo soy ${this.nombre} y tengo ${this.edad}`);
+  }
+}
+
+const persona = new Persona("pepe", 5);
+const persona2 = new Persona("guille", 40);
+
+persona.contameDeVos();
+persona2.contameDeVos();
