@@ -1,7 +1,7 @@
 {
-  "name": "cursobackend",
-  "version": "1.0.0",
-  "description": "",
+  "name": "test",
+  "version": "0.0.0",
+  "description": "algo random testeando",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,10 +11,16 @@
     "url": "git+https://github.com/JoaquinPerrier/CursoBackend.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "joaquinP",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JoaquinPerrier/CursoBackend/issues"
   },
-  "homepage": "https://github.com/JoaquinPerrier/CursoBackend#readme"
+  "homepage": "https://github.com/JoaquinPerrier/CursoBackend#readme",
+  "dependencies": {
+    "firebase": "^9.9.1",
+    "moment": "^2.29.4",
+    "mongodb": "^4.8.1",
+    "nodemon": "^2.0.19"
+  }
 }
