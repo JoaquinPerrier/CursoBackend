@@ -1,7 +1,6 @@
 {
-  "name": "test",
-  "version": "0.0.0",
-  "description": "algo random testeando",
+  "name": "cursobackend",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,10 +16,9 @@
     "url": "https://github.com/JoaquinPerrier/CursoBackend/issues"
   },
   "homepage": "https://github.com/JoaquinPerrier/CursoBackend#readme",
+  "description": "",
   "dependencies": {
-    "firebase": "^9.9.1",
-    "moment": "^2.29.4",
-    "mongodb": "^4.8.1",
+    "express": "^4.18.1",
     "nodemon": "^2.0.19"
   }
 }
