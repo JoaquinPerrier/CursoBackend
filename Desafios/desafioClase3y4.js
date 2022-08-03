@@ -9,7 +9,6 @@ class Contenedor {
     try {
       // OBTENEMOS OBJETOS PARA VER ULTIMO ID
       let ultimaID;
-      let contenidoParseado;
 
       let productsParsed = await this.getAll();
       // console.log(productsParsed);
