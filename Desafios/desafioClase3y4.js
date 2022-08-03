@@ -121,3 +121,5 @@ async function correrPrograma() {
 
 correrPrograma();
 console.log("salio");
+
+module.exports = Contenedor;
