@@ -18,6 +18,11 @@ prob();
 
 const PORT = process.env.port || 3000;
 
+app.use((req, res, next) => {
+  prob();
+  next();
+});
+
 // Routes
 app.get("/", (req, res) => {
   res.end(contenedor);
@@ -28,7 +33,6 @@ app.get("/productos", (req, res) => {
 });
 
 app.get("/productoRandom", (req, res) => {
-  // SE EJECUTA DE NUEVO LA FUNCION, PARA QUE EL ID SEA RANDOM
   prob();
   res.send(productoEncontrado);
 });
