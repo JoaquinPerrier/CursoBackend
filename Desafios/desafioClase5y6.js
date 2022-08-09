@@ -8,7 +8,6 @@ let prob = async function correrPrograma() {
   // DEVUELVE TODO EL CONTENIDO DEL ARCHIVO:
   arryCompleto = await contenedor.getAll();
   // DEVUELVE EL CONTENIDO DEL ID BUSCADO
-  let idABuscar = Math.trunc(Math.random() * (6 - 1) + 1);
   productoEncontrado = await contenedor.getById(
     Math.trunc(Math.random() * (6 - 1) + 1)
   );
@@ -25,7 +24,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.get("/", (req, res) => {
-  res.end(contenedor);
+  res.send("BEMVINDO");
 });
 
 app.get("/productos", (req, res) => {
