@@ -77,15 +77,13 @@ app.put("/productos/:id", (req, res) => {
 
   contenedor.modificarObjeto(arrayCompleto);
 
-  res.send("PRECIO CAMBIAO");
+  res.send("PRECIO CAMBIADO");
 });
 
-/*
 //DELETE CON ID PARAMS SIEMPRE
 app.delete("/productos/:id", (req, res) => {
   const { id } = req.params;
-  const productsFilteredById = productos.filter((item) => item.id != id);
-  console.log(productsFilteredById);
-  res.json({ success: "ok" });
+  const productsFilteredById = arrayCompleto.filter((item) => item.id != id);
+  contenedor.modificarObjeto(productsFilteredById);
+  res.send("OBJETO ELIMINADO");
 });
-*/
