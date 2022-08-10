@@ -3,12 +3,16 @@ const { Router } = express;
 const Contenedor = require("./desafioClase3y4");
 
 let contenedor = new Contenedor("productos.txt");
-let arryCompleto, productoEncontrado;
+let arrayCompleto;
 let obtenerProductos = async () => {
   // DEVUELVE TODO EL CONTENIDO DEL ARCHIVO:
-  arryCompleto = await contenedor.getAll();
+  arrayCompleto = await contenedor.getAll();
 };
 let ingresarNuevoObj = async (newObj) => {
+  await contenedor.save(newObj);
+};
+
+let modificarObj = async (arrayMod) => {
   await contenedor.save(newObj);
 };
 
@@ -32,14 +36,14 @@ app.use("/api", router);
 
 //GET CON QUERY TIPO SEARCH (OJO QUE ES EL MISMO!)
 app.get("/productos", (req, res) => {
-  res.json(arryCompleto);
+  res.json(arrayCompleto);
 });
 
 //GET CON ID IDENTIFICADOR EN LA URL TIPO PARAMS
 app.get("/productos/:id", (req, res) => {
   const { id } = req.params;
 
-  const found = arryCompleto.find((el) => el.id == id);
+  const found = arrayCompleto.find((el) => el.id == id);
   console.log(found);
   if (found) {
     res.json(found);
@@ -59,18 +63,24 @@ app.post("/productos", (req, res) => {
   res.json({ success: "producto agregado", newProduct: body });
 });
 
-/*
 //PUT CON ID PARAMS SIEMPRE y BODY!
 app.put("/productos/:id", (req, res) => {
   const { id } = req.params;
   const { body } = req;
 
-  const productoToChange = productos.find((el) => el.id == id);
+  const productoToChange = arrayCompleto.find((el) => el.id == id);
   productoToChange.price = body.price;
-  console.log(productoToChange, body);
+
+  let lugarDelObjt = arrayCompleto.findIndex((el) => el.id == id);
+
+  arrayCompleto[lugarDelObjt] = productoToChange;
+
+  contenedor.modificarObjeto(arrayCompleto);
+
   res.send("PRECIO CAMBIAO");
 });
 
+/*
 //DELETE CON ID PARAMS SIEMPRE
 app.delete("/productos/:id", (req, res) => {
   const { id } = req.params;

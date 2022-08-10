@@ -34,6 +34,17 @@ class Contenedor {
     }
   };
 
+  modificarObjeto = async (newArray) => {
+    try {
+      await fs.promises.writeFile(
+        `./Desafios/${this.nombreArchivo}`,
+        JSON.stringify(newArray)
+      );
+    } catch (error) {
+      console.log("ERROR");
+    }
+  };
+
   getAll = async () => {
     try {
       const products = await fs.promises.readFile(
