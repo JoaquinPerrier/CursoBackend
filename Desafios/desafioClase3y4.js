@@ -98,26 +98,27 @@ class Contenedor {
   };
 }
 
-let contenedor = new Contenedor("productos.txt");
+// DESCOMENTAR ESTAS LINEAS PARA QUE FUNCIONE
+//let contenedor = new Contenedor("productos.txt");
 
-async function correrPrograma() {
-  // DEVUELVE TODO EL CONTENIDO DEL ARCHIVO:
-  // console.log(await contenedor.getAll());
-  // DEVUELVE EL CONTENIDO DEL ID BUSCADO
-  // let productoEncontrado = await contenedor.getById(2);
-  // console.log(productoEncontrado);
-  // GUARDA OBJETO
-  // let nuevoObjeto = {
-  //    title: "asdsadsad",
-  //    price: 145,
-  //  thumbnail: "www.img.com/soda.jpg"
-  //  }
-  //await contenedor.save(nuevoObjeto);
-  // BORRA OBJETO POR ID
-  // await contenedor.deleteById(6);
-  // BORRA TODOS LOS OBJETOS
-  // await contenedor.deleteAll();
-}
+//async function correrPrograma() {
+// DEVUELVE TODO EL CONTENIDO DEL ARCHIVO:
+// console.log(await contenedor.getAll());
+// DEVUELVE EL CONTENIDO DEL ID BUSCADO
+// let productoEncontrado = await contenedor.getById(2);
+// console.log(productoEncontrado);
+// GUARDA OBJETO
+// let nuevoObjeto = {
+//    title: "asdsadsad",
+//    price: 145,
+//  thumbnail: "www.img.com/soda.jpg"
+//  }
+//await contenedor.save(nuevoObjeto);
+// BORRA OBJETO POR ID
+// await contenedor.deleteById(6);
+// BORRA TODOS LOS OBJETOS
+// await contenedor.deleteAll();
+//}
 
 //correrPrograma();
 //console.log("salio");

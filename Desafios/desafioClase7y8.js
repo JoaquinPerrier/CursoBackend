@@ -4,12 +4,15 @@ const Contenedor = require("./desafioClase3y4");
 
 let contenedor = new Contenedor("productos.txt");
 let arryCompleto, productoEncontrado;
-let prob = async function correrPrograma() {
+let obtenerProductos = async () => {
   // DEVUELVE TODO EL CONTENIDO DEL ARCHIVO:
   arryCompleto = await contenedor.getAll();
 };
+let ingresarNuevoObj = async (newObj) => {
+  await contenedor.save(newObj);
+};
 
-prob();
+obtenerProductos();
 
 const app = express();
 const router = Router();
@@ -44,17 +47,19 @@ app.get("/productos/:id", (req, res) => {
     res.send("NO SE ENCONTRO");
   }
 });
-/*
+
 //POST CON BODY (SIN ID!!)
 app.post("/productos", (req, res) => {
   const { body } = req;
   console.log(body);
   // ASIGNARLE UN ID AL OBJETO
-  body.id = 108;
+  body.id = arryCompleto.length;
 
-  res.json({ success: "ok", newProduct: body });
+  ingresarNuevoObj(body);
+  res.json({ success: "producto agregado", newProduct: body });
 });
 
+/*
 //PUT CON ID PARAMS SIEMPRE y BODY!
 app.put("/productos/:id", (req, res) => {
   const { id } = req.params;
