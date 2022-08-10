@@ -12,8 +12,8 @@ class Contenedor {
 
       let productsParsed = await this.getAll();
       // console.log(productsParsed);
-      ultimaID = productsParsed.length + 1;
-      objetoAGuardar.id = ultimaID;
+      //ultimaID = productsParsed.length + 1;
+      //objetoAGuardar.id = ultimaID;
       // console.log(objetoAGuardar);
       productsParsed.push(objetoAGuardar);
       console.log(productsParsed);

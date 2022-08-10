@@ -12,10 +12,6 @@ let ingresarNuevoObj = async (newObj) => {
   await contenedor.save(newObj);
 };
 
-let modificarObj = async (arrayMod) => {
-  await contenedor.save(newObj);
-};
-
 obtenerProductos();
 
 const app = express();
@@ -57,8 +53,9 @@ app.post("/productos", (req, res) => {
   const { body } = req;
   console.log(body);
   // ASIGNARLE UN ID AL OBJETO
-  body.id = arrayCompleto.length;
+  body.id = arrayCompleto.length + 1;
 
+  //console.log(body);
   ingresarNuevoObj(body);
   res.json({ success: "producto agregado", newProduct: body });
 });
