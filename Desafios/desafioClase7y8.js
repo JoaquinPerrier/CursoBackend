@@ -57,7 +57,7 @@ app.post("/productos", (req, res) => {
   const { body } = req;
   console.log(body);
   // ASIGNARLE UN ID AL OBJETO
-  body.id = arryCompleto.length;
+  body.id = arrayCompleto.length;
 
   ingresarNuevoObj(body);
   res.json({ success: "producto agregado", newProduct: body });
