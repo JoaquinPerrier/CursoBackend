@@ -119,7 +119,7 @@ async function correrPrograma() {
   // await contenedor.deleteAll();
 }
 
-correrPrograma();
-console.log("salio");
+//correrPrograma();
+//console.log("salio");
 
 module.exports = Contenedor;

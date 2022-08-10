@@ -7,7 +7,6 @@ let arryCompleto, productoEncontrado;
 let prob = async function correrPrograma() {
   // DEVUELVE TODO EL CONTENIDO DEL ARCHIVO:
   arryCompleto = await contenedor.getAll();
-  // DEVUELVE EL CONTENIDO DEL ID BUSCADO
 };
 
 prob();
@@ -29,22 +28,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", router);
 
 //GET CON QUERY TIPO SEARCH (OJO QUE ES EL MISMO!)
-app.get("/products", (req, res) => {
-  const { query } = req;
-  // http://localhost:8080/products?price=varPrecio PARA ENVIARLE UNA QUERY. SI NO, ENVIA TODOS LOS PROD
-  console.log(query);
-  if (query.price) {
-    res.json(productos.filter((el) => el.price == query.price));
-  } else {
-    res.json(productos);
-  }
+app.get("/productos", (req, res) => {
+  res.json(arryCompleto);
 });
 
 //GET CON ID IDENTIFICADOR EN LA URL TIPO PARAMS
-app.get("/products/:id", (req, res) => {
+app.get("/productos/:id", (req, res) => {
   const { id } = req.params;
 
-  const found = productos.find((el) => el.id == id);
+  const found = arryCompleto.find((el) => el.id == id);
   console.log(found);
   if (found) {
     res.json(found);
@@ -54,7 +46,7 @@ app.get("/products/:id", (req, res) => {
 });
 /*
 //POST CON BODY (SIN ID!!)
-app.post("/products", (req, res) => {
+app.post("/productos", (req, res) => {
   const { body } = req;
   console.log(body);
   // ASIGNARLE UN ID AL OBJETO
@@ -64,7 +56,7 @@ app.post("/products", (req, res) => {
 });
 
 //PUT CON ID PARAMS SIEMPRE y BODY!
-app.put("/products/:id", (req, res) => {
+app.put("/productos/:id", (req, res) => {
   const { id } = req.params;
   const { body } = req;
 
@@ -75,7 +67,7 @@ app.put("/products/:id", (req, res) => {
 });
 
 //DELETE CON ID PARAMS SIEMPRE
-app.delete("/products/:id", (req, res) => {
+app.delete("/productos/:id", (req, res) => {
   const { id } = req.params;
   const productsFilteredById = productos.filter((item) => item.id != id);
   console.log(productsFilteredById);
