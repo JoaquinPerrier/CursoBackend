@@ -28,7 +28,7 @@ server.on("error", (error) => console.log(`El error es ${error}`));
 // MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api", router);
+//app.use("/api", router);
 
 //GET CON QUERY TIPO SEARCH (OJO QUE ES EL MISMO!)
 app.get("/productos", (req, res) => {

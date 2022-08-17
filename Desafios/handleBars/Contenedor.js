@@ -19,7 +19,7 @@ class Contenedor {
       console.log(productsParsed);
 
       await fs.promises.writeFile(
-        `./Desafios/${this.nombreArchivo}`,
+        `./${this.nombreArchivo}`,
         JSON.stringify(productsParsed),
         (err) => {
           if (err) {
@@ -37,7 +37,7 @@ class Contenedor {
   modificarObjeto = async (newArray) => {
     try {
       await fs.promises.writeFile(
-        `./Desafios/${this.nombreArchivo}`,
+        `./${this.nombreArchivo}`,
         JSON.stringify(newArray)
       );
     } catch (error) {
@@ -48,14 +48,14 @@ class Contenedor {
   getAll = async () => {
     try {
       const products = await fs.promises.readFile(
-        `./Desafios/${this.nombreArchivo}`,
+        `./${this.nombreArchivo}`,
         "utf-8"
       );
       let productsParsed;
       return (productsParsed = JSON.parse(products));
     } catch (error) {
       await fs.promises.writeFile(
-        `./Desafios/${this.nombreArchivo}`,
+        `./${this.nombreArchivo}`,
         JSON.stringify([])
       );
       products = [];
@@ -88,7 +88,7 @@ class Contenedor {
         (element) => element.id != id
       );
       await fs.promises.writeFile(
-        `./Desafios/${this.nombreArchivo}`,
+        `./${this.nombreArchivo}`,
         JSON.stringify(arrayConProductoEliminado, null, 2)
       );
       await console.log(`Se ha eliminado el id: ${id}`);
@@ -100,7 +100,7 @@ class Contenedor {
   deleteAll = async () => {
     try {
       await fs.promises.writeFile(
-        `./Desafios/${this.nombreArchivo}`,
+        `./${this.nombreArchivo}`,
         JSON.stringify([])
       );
     } catch (error) {
@@ -114,16 +114,16 @@ class Contenedor {
 
 //async function correrPrograma() {
 // DEVUELVE TODO EL CONTENIDO DEL ARCHIVO:
-//  console.log(await contenedor.getAll());
+// console.log(await contenedor.getAll());
 // DEVUELVE EL CONTENIDO DEL ID BUSCADO
 // let productoEncontrado = await contenedor.getById(2);
 // console.log(productoEncontrado);
 // GUARDA OBJETO
-// let nuevoObjeto = {
-//    title: "asdsadsad",
-//    price: 145,
-//  thumbnail: "www.img.com/soda.jpg"
-//  }
+//let nuevoObjeto = {
+//  title: "asdsadsad",
+//  price: 145,
+//  thumbnail: "www.img.com/soda.jpg",
+//};
 //await contenedor.save(nuevoObjeto);
 // BORRA OBJETO POR ID
 // await contenedor.deleteById(6);

@@ -48,6 +48,7 @@ let productos = [
   { id: 101, name: "adidas shoes", price: 300 },
   { id: 102, name: "nike shirt", price: 230 },
 ];
+
 //GET SIN NADA
 /*app.get('/products', (req, res) => {
     res.json(productos)
