@@ -3,7 +3,7 @@ const { Router } = express;
 const app = express();
 const router = Router();
 const PORT = 8080;
-const ISADMIN = true;
+const ISADMIN = false;
 const Contenedor = require("./contenedor");
 
 let contenedor = new Contenedor("products.txt");
@@ -76,35 +76,53 @@ router.post(
   }
 );
 
-router.put("/products/:id", (req, res) => {
-  const { id } = req.params;
-  const { body } = req;
+router.put(
+  "/products/:id",
+  async (req, res, next) => {
+    if (ISADMIN == false) {
+      res.send("NO POSEE PERMISOS");
+    }
+    next();
+  },
+  (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
 
-  console.log(body);
+    console.log(body);
 
-  const productoToChange = arrayCompleto.find((el) => el.id == id);
-  console.log(productoToChange);
-  // CAMBIAMOS TODO EL PRODUCTO POR EL QUE VIENE DESDE EL FRONT
-  productoToChange.title = body.title;
-  productoToChange.description = body.description;
-  productoToChange.price = body.price;
-  productoToChange.code = body.code;
+    const productoToChange = arrayCompleto.find((el) => el.id == id);
+    console.log(productoToChange);
+    // CAMBIAMOS TODO EL PRODUCTO POR EL QUE VIENE DESDE EL FRONT
+    productoToChange.title = body.title;
+    productoToChange.description = body.description;
+    productoToChange.price = body.price;
+    productoToChange.code = body.code;
 
-  let lugarDelObjt = arrayCompleto.findIndex((el) => el.id == id);
+    let lugarDelObjt = arrayCompleto.findIndex((el) => el.id == id);
 
-  arrayCompleto[lugarDelObjt] = productoToChange;
+    arrayCompleto[lugarDelObjt] = productoToChange;
 
-  contenedor.modificarObjeto(arrayCompleto);
+    contenedor.modificarObjeto(arrayCompleto);
 
-  res.send("PRODUCTO CAMBIADO");
-});
+    res.send("PRODUCTO CAMBIADO");
+  }
+);
 
-router.delete("/products/:id", (req, res) => {
-  const { id } = req.params;
-  const productsFilteredById = arrayCompleto.filter((item) => item.id != id);
-  contenedor.modificarObjeto(productsFilteredById);
-  res.send("OBJETO ELIMINADO");
-});
+router.delete(
+  "/products/:id",
+  async (req, res, next) => {
+    if (ISADMIN == false) {
+      res.send("NO POSEE PERMISOS");
+    }
+    next();
+  },
+  (req, res) => {
+    const { id } = req.params;
+    const productsFilteredById = arrayCompleto.filter((item) => item.id != id);
+    contenedor.modificarObjeto(productsFilteredById);
+    res.send("OBJETO ELIMINADO");
+  }
+);
 
 //////////////////////////
 // ROUTES OF SHOPPING CART
