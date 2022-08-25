@@ -22,7 +22,7 @@ obtenerProductos();
 app.use(express.json());
 app.use("/public", express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname + "/public"));
+//app.use(express.static(__dirname + "/public"));
 
 app.use("/api/", router);
 
@@ -69,14 +69,14 @@ router.post(
     console.log(body);
 
     ingresarNuevoObj(body);
-    res.redirect("/");
+    res.redirect("/public/index.html");
     //console.log(arrayCompleto.length);
   }
 );
 
 // ROUTES OF SHOPPING CART
 router.get("/carrito", (req, res) => {
-  res.send(arrayCompleto);
+  res.send("SEND SHOPPING CART");
 });
 
 // SERVER INFO
