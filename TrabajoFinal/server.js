@@ -3,6 +3,20 @@ const { Router } = express;
 const app = express();
 const router = Router();
 const PORT = 8080;
+const ISADMIN = false;
+const Contenedor = require("./contenedor");
+
+let contenedor = new Contenedor("products.txt");
+let arrayCompleto;
+let obtenerProductos = async () => {
+  // DEVUELVE TODO EL CONTENIDO DEL ARCHIVO:
+  arrayCompleto = await contenedor.getAll();
+};
+let ingresarNuevoObj = async (newObj) => {
+  await contenedor.save(newObj);
+};
+
+obtenerProductos();
 
 // CONFIGURATION
 app.use(express.json());
@@ -12,13 +26,51 @@ app.use(express.static(__dirname + "/public"));
 app.use("/api/", router);
 
 // ROUTES OF PRODUCTS
-router.get("/products", (req, res) => {
-  res.send("Get for products");
+router.get("/products/:id?", (req, res) => {
+  const { id } = req.params;
+
+  // IF THERE IS NOT AN ID, WE RETURN THE FULL LIST
+  if (id == null) {
+    res.send(arrayCompleto);
+  } else {
+    const found = arrayCompleto.find((el) => el.id == id);
+    // IF FOUND IS EMPTY, WE ADVISE THE USER
+    if (found != null) {
+      res.send(found);
+    } else {
+      res.send("THE PRODUCT DOESN'T EXIST");
+    }
+  }
 });
+
+router.post(
+  "/products",
+  async (req, res, next) => {
+    if (ISADMIN == false) {
+      res.send("NO POSEE PERMISOS");
+    }
+    next();
+  },
+  async (req, res, next) => {
+    await obtenerProductos();
+    next();
+  },
+  async (req, res) => {
+    const { body } = req;
+    console.log(body);
+    // ASIGNARLE UN ID AL OBJETO
+    body.id = arrayCompleto.length + 1;
+
+    //console.log(body);
+    ingresarNuevoObj(body);
+    res.redirect("/");
+    console.log(arrayCompleto.length);
+  }
+);
 
 // ROUTES OF SHOPPING CART
 router.get("/carrito", (req, res) => {
-  res.send("Get for the shopping cart");
+  res.send(arrayCompleto);
 });
 
 // SERVER INFO
