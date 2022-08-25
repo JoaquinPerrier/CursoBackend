@@ -14,14 +14,8 @@
       <th scope="col">Img</th>
     </tr>
   </thead>
-  <tbody>
-        {{#each products}}
-            <th scope="row">{{this.id}}</th>
-                <td> {{this.title}}</td>
-                <td>{{this.price}}</td>
-                <td><img src="{{this.thumbnail}}" class="product-img"/></td>
-            </tr>
-        {{/each}}
+  <tbody id="products">
+        
   </tbody>
 </table>
 
