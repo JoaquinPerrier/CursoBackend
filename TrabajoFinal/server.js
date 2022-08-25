@@ -60,6 +60,10 @@ router.post(
     const { body } = req;
     console.log(req);
     // ASIGNARLE UN ID AL OBJETO
+    body.price = Number(body.price);
+    body.code = Number(body.code);
+    body.stock = Number(body.stock);
+
     body.id = arrayCompleto.length + 1;
     body.timestamp = Date.now();
     console.log(body);
