@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Mother gigabyte",
+    "price": 12900,
+    "thumbnail": "http://localhost:8080/public/mothergiga.jpg",
+    "id": 1
+  },
+  {
+    "title": "Memoria RAM 16 GB Kingston",
+    "price": 9960,
+    "thumbnail": "http://localhost:8080/public/memoriaram16gb.jpg",
+    "id": 2
+  },
+  {
+    "title": "Monitor 24'' samsung",
+    "price": 26000,
+    "thumbnail": "http://localhost:8080/public/samsung24.jpg",
+    "id": 3
+  },
+  {
+    "title": "Teclado HiperX mecanico",
+    "price": 15000,
+    "thumbnail": "http://localhost:8080/public/hiperxkey.jpg",
+    "id": 4
+  },
+  {
+    "title": "Mouse logitech X pro",
+    "price": 6300,
+    "thumbnail": "http://localhost:8080/public/logimouse.jpg",
+    "id": 5
+  }
+]
