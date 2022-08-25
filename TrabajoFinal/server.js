@@ -74,6 +74,22 @@ router.post(
   }
 );
 
+router.put("/products/:id", (req, res) => {
+  const { id } = req.params;
+  const { body } = req;
+
+  const productoToChange = arrayCompleto.find((el) => el.id == id);
+  productoToChange.price = body.price;
+
+  let lugarDelObjt = arrayCompleto.findIndex((el) => el.id == id);
+
+  arrayCompleto[lugarDelObjt] = productoToChange;
+
+  contenedor.modificarObjeto(arrayCompleto);
+
+  res.send("PRECIO CAMBIADO");
+});
+
 // ROUTES OF SHOPPING CART
 router.get("/carrito", (req, res) => {
   res.send("SEND SHOPPING CART");
