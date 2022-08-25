@@ -3,7 +3,7 @@ const { Router } = express;
 const app = express();
 const router = Router();
 const PORT = 8080;
-const ISADMIN = false;
+const ISADMIN = true;
 const Contenedor = require("./contenedor");
 
 let contenedor = new Contenedor("products.txt");
@@ -23,6 +23,7 @@ app.use(express.json());
 app.use("/public", express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
+
 app.use("/api/", router);
 
 // ROUTES OF PRODUCTS
@@ -57,12 +58,13 @@ router.post(
   },
   async (req, res) => {
     const { body } = req;
-    console.log(body);
+    console.log(req);
     // ASIGNARLE UN ID AL OBJETO
     body.id = arrayCompleto.length + 1;
+    body.timestamp = Date.now();
+    console.log(body);
 
-    //console.log(body);
-    ingresarNuevoObj(body);
+    //ingresarNuevoObj(body);
     res.redirect("/");
     console.log(arrayCompleto.length);
   }
