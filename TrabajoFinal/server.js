@@ -26,7 +26,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/", router);
 
+//////////////////////////
 // ROUTES OF PRODUCTS
+//////////////////////////
 router.get("/products/:id?", (req, res) => {
   const { id } = req.params;
 
@@ -97,7 +99,16 @@ router.put("/products/:id", (req, res) => {
   res.send("PRODUCTO CAMBIADO");
 });
 
+router.delete("/products/:id", (req, res) => {
+  const { id } = req.params;
+  const productsFilteredById = arrayCompleto.filter((item) => item.id != id);
+  contenedor.modificarObjeto(productsFilteredById);
+  res.send("OBJETO ELIMINADO");
+});
+
+//////////////////////////
 // ROUTES OF SHOPPING CART
+//////////////////////////
 router.get("/carrito", (req, res) => {
   res.send("SEND SHOPPING CART");
 });
