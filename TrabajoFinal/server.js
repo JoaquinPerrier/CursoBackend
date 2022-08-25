@@ -78,8 +78,15 @@ router.put("/products/:id", (req, res) => {
   const { id } = req.params;
   const { body } = req;
 
+  console.log(body);
+
   const productoToChange = arrayCompleto.find((el) => el.id == id);
+  console.log(productoToChange);
+  // CAMBIAMOS TODO EL PRODUCTO POR EL QUE VIENE DESDE EL FRONT
+  productoToChange.title = body.title;
+  productoToChange.description = body.description;
   productoToChange.price = body.price;
+  productoToChange.code = body.code;
 
   let lugarDelObjt = arrayCompleto.findIndex((el) => el.id == id);
 
@@ -87,7 +94,7 @@ router.put("/products/:id", (req, res) => {
 
   contenedor.modificarObjeto(arrayCompleto);
 
-  res.send("PRECIO CAMBIADO");
+  res.send("PRODUCTO CAMBIADO");
 });
 
 // ROUTES OF SHOPPING CART
