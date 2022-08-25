@@ -20,6 +20,11 @@ let ingresarNuevoObj = async (newObj) => {
 };
 obtenerProductos();
 
+app.use(express.json());
+app.use("/public", express.static(__dirname + "/public"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/public"));
+
 // CHAT SOCKET IO
 let chat = [
   {
@@ -52,10 +57,6 @@ io.on("connection", (socket) => {
     io.sockets.emit("products", arrayCompleto);
   });
 });
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(__dirname + "public"));
 
 app.set("view engine", "hbs");
 app.set("views", "./views");
