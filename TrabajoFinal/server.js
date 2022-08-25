@@ -64,9 +64,9 @@ router.post(
     body.timestamp = Date.now();
     console.log(body);
 
-    //ingresarNuevoObj(body);
+    ingresarNuevoObj(body);
     res.redirect("/");
-    console.log(arrayCompleto.length);
+    //console.log(arrayCompleto.length);
   }
 );
 
