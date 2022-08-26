@@ -4,19 +4,7 @@ const app = express();
 const router = Router();
 const PORT = 8080;
 const ISADMIN = false;
-const Contenedor = require("./contenedor");
-
-let contenedor = new Contenedor("products.txt");
-let arrayCompleto;
-let obtenerProductos = async () => {
-  // DEVUELVE TODO EL CONTENIDO DEL ARCHIVO:
-  arrayCompleto = await contenedor.getAll();
-};
-let ingresarNuevoObj = async (newObj) => {
-  await contenedor.save(newObj);
-};
-
-obtenerProductos();
+const productController = require("./controllers/productController");
 
 // CONFIGURATION
 app.use(express.json());
@@ -30,20 +18,7 @@ app.use("/api/", router);
 // ROUTES OF PRODUCTS
 //////////////////////////
 router.get("/products/:id?", (req, res) => {
-  const { id } = req.params;
-
-  // IF THERE IS NOT AN ID, WE RETURN THE FULL LIST
-  if (id == null) {
-    res.send(arrayCompleto);
-  } else {
-    const found = arrayCompleto.find((el) => el.id == id);
-    // IF FOUND IS EMPTY, WE ADVISE THE USER
-    if (found != null) {
-      res.send(found);
-    } else {
-      res.send("THE PRODUCT DOESN'T EXIST");
-    }
-  }
+  productController.product_list(req, res);
 });
 
 router.post(
