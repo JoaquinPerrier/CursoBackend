@@ -1,6 +1,6 @@
 const express = require("express");
 const { Router } = express;
-const Contenedor = require("./desafioClase3y4");
+const Contenedor = require("./contenedor");
 
 let contenedor = new Contenedor("productos.txt");
 let arrayCompleto;
