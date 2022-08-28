@@ -3,7 +3,7 @@ const { Router } = express;
 const app = express();
 const router = Router();
 const PORT = 8080;
-const ISADMIN = false;
+const ISADMIN = true;
 const productController = require("./controllers/productController");
 
 // CONFIGURATION
@@ -23,31 +23,14 @@ router.get("/products/:id?", (req, res) => {
 
 router.post(
   "/products",
-  async (req, res, next) => {
+  (req, res, next) => {
     if (ISADMIN == false) {
       res.send("NO POSEE PERMISOS");
     }
     next();
   },
-  async (req, res, next) => {
-    await obtenerProductos();
-    next();
-  },
-  async (req, res) => {
-    const { body } = req;
-    console.log(req);
-    // ASIGNARLE UN ID AL OBJETO
-    body.price = Number(body.price);
-    body.code = Number(body.code);
-    body.stock = Number(body.stock);
-
-    body.id = arrayCompleto.length + 1;
-    body.timestamp = Date.now();
-    console.log(body);
-
-    ingresarNuevoObj(body);
-    res.redirect("/public/index.html");
-    //console.log(arrayCompleto.length);
+  (req, res) => {
+    productController.create_product(req, res);
   }
 );
 
@@ -60,26 +43,7 @@ router.put(
     next();
   },
   (req, res) => {
-    const { id } = req.params;
-    const { body } = req;
-
-    console.log(body);
-
-    const productoToChange = arrayCompleto.find((el) => el.id == id);
-    console.log(productoToChange);
-    // CAMBIAMOS TODO EL PRODUCTO POR EL QUE VIENE DESDE EL FRONT
-    productoToChange.title = body.title;
-    productoToChange.description = body.description;
-    productoToChange.price = body.price;
-    productoToChange.code = body.code;
-
-    let lugarDelObjt = arrayCompleto.findIndex((el) => el.id == id);
-
-    arrayCompleto[lugarDelObjt] = productoToChange;
-
-    contenedor.modificarObjeto(arrayCompleto);
-
-    res.send("PRODUCTO CAMBIADO");
+    productController.edit_product(req, res);
   }
 );
 
@@ -92,10 +56,7 @@ router.delete(
     next();
   },
   (req, res) => {
-    const { id } = req.params;
-    const productsFilteredById = arrayCompleto.filter((item) => item.id != id);
-    contenedor.modificarObjeto(productsFilteredById);
-    res.send("OBJETO ELIMINADO");
+    productController.delete_product(req, res);
   }
 );
 
