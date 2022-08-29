@@ -51,7 +51,6 @@ exports.deleteCart = async function (req, res) {
 
 exports.addProductToCart = async function (req, res, productToAdd) {
   const { id } = req.params;
-  console.log(id);
 
   await obtenerCarritos();
 
