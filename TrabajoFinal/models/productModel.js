@@ -78,3 +78,16 @@ exports.deleteProduct = function (req, res) {
   productsContainer.modificarObjeto(productsFilteredById);
   return productsFilteredById;
 };
+
+exports.findProductForCart = function (req, res) {
+  const { id_prod } = req.params;
+  console.log(id_prod);
+
+  const found = arrayCompleto.find((el) => el.id == id_prod);
+  // IF FOUND IS EMPTY, WE ADVISE THE USER
+  if (found != null) {
+    return found;
+  } else {
+    return "PRODUCTO NO ENCONTRADO";
+  }
+};

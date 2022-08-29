@@ -3,7 +3,7 @@ const { Router } = express;
 const app = express();
 const router = Router();
 const PORT = 8080;
-const ISADMIN = false;
+const ISADMIN = true;
 const productController = require("./controllers/productController");
 const cartController = require("./controllers/cartController");
 
@@ -41,7 +41,7 @@ router.post(
 
 router.put(
   "/products/:id",
-  async (req, res, next) => {
+  (req, res, next) => {
     if (ISADMIN == false) {
       res.send({
         error: -1,
@@ -58,7 +58,7 @@ router.put(
 
 router.delete(
   "/products/:id",
-  async (req, res, next) => {
+  (req, res, next) => {
     if (ISADMIN == false) {
       res.send({
         error: -1,
@@ -76,16 +76,24 @@ router.delete(
 //////////////////////////
 // ROUTES OF SHOPPING CART
 //////////////////////////
-router.get("/carrito/:id/products", (req, res) => {
-  cartController.cart_list(req, res);
-});
-
 router.post("/carrito", (req, res) => {
   cartController.create_cart(req, res);
 });
 
 router.delete("/carrito/:id", (req, res) => {
   cartController.delete_cart(req, res);
+});
+
+router.get("/carrito/:id/products", (req, res) => {
+  cartController.cart_list(req, res);
+});
+
+router.post("/carrito/:id/products/:id_prod", async (req, res) => {
+  // SEARCH FOR THE PRODUCT TO ADD
+  let productToAdd = await productController.find_product_for_cart(req, res);
+
+  // ADDING THE PRODUCT TO THE SHOPPING CART
+  cartController.addProductToCart(req, res, productToAdd);
 });
 
 // SERVER INFO

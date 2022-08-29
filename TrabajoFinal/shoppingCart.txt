@@ -2,7 +2,7 @@
   {
     "id": 1,
     "timestamp": 1661440723514,
-    "products": {
+    "products": [{
     "title": "Memoria RAM 16 GB Kingston",
     "description": "High speed and low latency",
     "price": 9960,
@@ -11,12 +11,12 @@
     "thumbnail": "http://localhost:8080/public/memoriaram16gb.jpg",
     "timestamp": 1661440723514,
     "id": 2
-  }
+  }]
   },
   {
     "id": 2,
     "timestamp": 1661440723514,
-    "products": {
+    "products": [{
     "title": "Mouse logitech X pro",
     "description": "Wireless technology with advance lightspeed. Precission under the micron with the HERO 25K senson",
     "price": 6300,
@@ -25,6 +25,6 @@
     "thumbnail": "http://localhost:8080/public/logimouse.jpg",
     "timestamp": 1661440714904,
     "id": 5
-  }
+  }]
   }
 ]

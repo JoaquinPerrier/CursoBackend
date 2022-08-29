@@ -19,3 +19,8 @@ exports.delete_product = async function (req, res) {
   let productList = await productModel.deleteProduct(req, res);
   res.send({ message: "Delete OK", productList: productList });
 };
+
+exports.find_product_for_cart = async function (req, res) {
+  let productFound = await productModel.findProductForCart(req, res);
+  return productFound;
+};

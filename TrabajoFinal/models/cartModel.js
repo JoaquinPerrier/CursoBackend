@@ -48,3 +48,25 @@ exports.deleteCart = async function (req, res) {
   shoppingCartContainer.modificarObjeto(cartsFilteredById);
   return cartsFilteredById;
 };
+
+exports.addProductToCart = async function (req, res, productToAdd) {
+  const { id } = req.params;
+  console.log(id);
+
+  await obtenerCarritos();
+
+  const found = allShoppingCarts.find((el) => el.id == id);
+  console.log(found);
+  if (found != undefined) {
+    found.products.push(productToAdd);
+
+    console.log(found.products);
+    let lugarDelObjt = allShoppingCarts.findIndex((el) => el.id == id);
+    allShoppingCarts[lugarDelObjt] = found;
+    shoppingCartContainer.modificarObjeto(allShoppingCarts);
+
+    return found;
+  } else {
+    return "ERROR. PRODUCTO NO ENCONTRADO";
+  }
+};
