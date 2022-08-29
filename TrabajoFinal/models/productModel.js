@@ -1,13 +1,14 @@
 const Contenedor = require("../contenedor");
 
-let contenedor = new Contenedor("products.txt");
+let productsContainer = new Contenedor("products.txt");
+
 let arrayCompleto;
 let obtenerProductos = async () => {
   // DEVUELVE TODO EL CONTENIDO DEL ARCHIVO:
-  arrayCompleto = await contenedor.getAll();
+  arrayCompleto = await productsContainer.getAll();
 };
 let ingresarNuevoObj = async (newObj) => {
-  await contenedor.save(newObj);
+  await productsContainer.save(newObj);
 };
 
 obtenerProductos();
@@ -65,7 +66,7 @@ exports.editProduct = function (req, res) {
 
   arrayCompleto[lugarDelObjt] = productoToChange;
 
-  contenedor.modificarObjeto(arrayCompleto);
+  productsContainer.modificarObjeto(arrayCompleto);
 
   return productoToChange;
 };
@@ -74,6 +75,6 @@ exports.deleteProduct = function (req, res) {
   const { id } = req.params;
 
   const productsFilteredById = arrayCompleto.filter((item) => item.id != id);
-  contenedor.modificarObjeto(productsFilteredById);
+  productsContainer.modificarObjeto(productsFilteredById);
   return productsFilteredById;
 };

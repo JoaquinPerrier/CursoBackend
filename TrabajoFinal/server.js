@@ -5,6 +5,7 @@ const router = Router();
 const PORT = 8080;
 const ISADMIN = false;
 const productController = require("./controllers/productController");
+const cartController = require("./controllers/cartController");
 
 // CONFIGURATION
 app.use(express.json());
@@ -75,8 +76,8 @@ router.delete(
 //////////////////////////
 // ROUTES OF SHOPPING CART
 //////////////////////////
-router.get("/carrito", (req, res) => {
-  res.send("SEND SHOPPING CART");
+router.get("/carrito/:id/products", (req, res) => {
+  cartController.cart_list(req, res);
 });
 
 // SERVER INFO
