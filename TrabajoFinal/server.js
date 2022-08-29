@@ -80,6 +80,10 @@ router.get("/carrito/:id/products", (req, res) => {
   cartController.cart_list(req, res);
 });
 
+router.post("/carrito", (req, res) => {
+  cartController.create_cart(req, res);
+});
+
 // SERVER INFO
 const server = app.listen(PORT, () => {
   console.log(`Servidor escuchado en el puerto ${server.address().port}`);
