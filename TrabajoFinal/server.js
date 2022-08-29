@@ -3,7 +3,7 @@ const { Router } = express;
 const app = express();
 const router = Router();
 const PORT = 8080;
-const ISADMIN = true;
+const ISADMIN = false;
 const productController = require("./controllers/productController");
 
 // CONFIGURATION
@@ -25,9 +25,13 @@ router.post(
   "/products",
   (req, res, next) => {
     if (ISADMIN == false) {
-      res.send("NO POSEE PERMISOS");
+      res.send({
+        error: -1,
+        desc: `route /api/products with POST isn´t auth`,
+      });
+    } else {
+      next();
     }
-    next();
   },
   (req, res) => {
     productController.create_product(req, res);
@@ -38,9 +42,13 @@ router.put(
   "/products/:id",
   async (req, res, next) => {
     if (ISADMIN == false) {
-      res.send("NO POSEE PERMISOS");
+      res.send({
+        error: -1,
+        desc: `route /api/products with PUT isn´t auth`,
+      });
+    } else {
+      next();
     }
-    next();
   },
   (req, res) => {
     productController.edit_product(req, res);
@@ -51,9 +59,13 @@ router.delete(
   "/products/:id",
   async (req, res, next) => {
     if (ISADMIN == false) {
-      res.send("NO POSEE PERMISOS");
+      res.send({
+        error: -1,
+        desc: `route /api/products with DELETE isn´t auth`,
+      });
+    } else {
+      next();
     }
-    next();
   },
   (req, res) => {
     productController.delete_product(req, res);
