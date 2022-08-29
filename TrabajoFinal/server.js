@@ -84,6 +84,10 @@ router.post("/carrito", (req, res) => {
   cartController.create_cart(req, res);
 });
 
+router.delete("/carrito/:id", (req, res) => {
+  cartController.delete_cart(req, res);
+});
+
 // SERVER INFO
 const server = app.listen(PORT, () => {
   console.log(`Servidor escuchado en el puerto ${server.address().port}`);

@@ -40,3 +40,11 @@ exports.createCart = async function (req, res) {
   return newCart;
   //console.log(arrayCompleto.length);
 };
+
+exports.deleteCart = async function (req, res) {
+  const { id } = req.params;
+  console.log(allShoppingCarts);
+  const cartsFilteredById = allShoppingCarts.filter((item) => item.id != id);
+  shoppingCartContainer.modificarObjeto(cartsFilteredById);
+  return cartsFilteredById;
+};

@@ -9,3 +9,8 @@ exports.create_cart = async function (req, res) {
   let cartAdded = await cartModel.createCart(req, res);
   res.send({ message: "Creation OK", cartAdded: cartAdded });
 };
+
+exports.delete_cart = async function (req, res) {
+  let cartAdded = await cartModel.deleteCart(req, res);
+  res.send({ message: "Delete OK", cartAdded: cartAdded });
+};
