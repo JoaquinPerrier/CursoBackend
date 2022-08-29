@@ -56,11 +56,9 @@ exports.addProductToCart = async function (req, res, productToAdd) {
   await obtenerCarritos();
 
   const found = allShoppingCarts.find((el) => el.id == id);
-  console.log(found);
   if (found != undefined) {
     found.products.push(productToAdd);
 
-    console.log(found.products);
     let lugarDelObjt = allShoppingCarts.findIndex((el) => el.id == id);
     allShoppingCarts[lugarDelObjt] = found;
     shoppingCartContainer.modificarObjeto(allShoppingCarts);

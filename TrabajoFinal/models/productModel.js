@@ -81,7 +81,6 @@ exports.deleteProduct = function (req, res) {
 
 exports.findProductForCart = function (req, res) {
   const { id_prod } = req.params;
-  console.log(id_prod);
 
   const found = arrayCompleto.find((el) => el.id == id_prod);
   // IF FOUND IS EMPTY, WE ADVISE THE USER
