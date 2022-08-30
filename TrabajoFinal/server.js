@@ -93,7 +93,11 @@ router.post("/carrito/:id/products/:id_prod", async (req, res) => {
   let productToAdd = await productController.find_product_for_cart(req, res);
 
   // ADDING THE PRODUCT TO THE SHOPPING CART
-  cartController.addProductToCart(req, res, productToAdd);
+  cartController.add_product_to_cart(req, res, productToAdd);
+});
+
+router.delete("/carrito/:id/products/:id_prod", async (req, res) => {
+  cartController.delete_product_from_cart(req, res);
 });
 
 // SERVER INFO

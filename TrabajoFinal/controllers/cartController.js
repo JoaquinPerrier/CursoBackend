@@ -15,7 +15,12 @@ exports.delete_cart = async function (req, res) {
   res.send({ message: "Delete OK", cartAdded: cartAdded });
 };
 
-exports.addProductToCart = async function (req, res, productToAdd) {
+exports.add_product_to_cart = async function (req, res, productToAdd) {
   let cartAdded = await cartModel.addProductToCart(req, res, productToAdd);
   res.send({ message: "Product added OK", cartAdded: cartAdded });
+};
+
+exports.delete_product_from_cart = async function (req, res) {
+  let cartAdded = await cartModel.deleteProductFromCart(req, res);
+  res.send({ message: "Product deleted OK", cartAdded: cartAdded });
 };

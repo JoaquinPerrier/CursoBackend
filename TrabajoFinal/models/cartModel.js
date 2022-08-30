@@ -67,3 +67,31 @@ exports.addProductToCart = async function (req, res, productToAdd) {
     return "ERROR. PRODUCTO NO ENCONTRADO";
   }
 };
+
+exports.deleteProductFromCart = async function (req, res, productToAdd) {
+  const { id, id_prod } = req.params;
+
+  await obtenerCarritos();
+
+  // WE SEARCH FOR THE SHOPPING CART TO EDIT
+  const shoppingCartFound = allShoppingCarts.find((el) => el.id == id);
+
+  if (shoppingCartFound != undefined) {
+    // WE UPDATE THE PRODUCTS OF THE SHOPPING CART FOUND
+    const productsToUpdate = shoppingCartFound.products.filter(
+      (item) => item.id != id_prod
+    );
+    shoppingCartFound.products = productsToUpdate;
+
+    // WE UPDATE THE ARRAY OF THE SHOPPINGS CARTS
+    let lugarDelObjt = allShoppingCarts.findIndex((el) => el.id == id);
+
+    allShoppingCarts[lugarDelObjt] = shoppingCartFound;
+
+    shoppingCartContainer.modificarObjeto(allShoppingCarts);
+
+    return shoppingCartFound;
+  } else {
+    return "ERROR. CARRITO NO EXISTE";
+  }
+};
