@@ -21,8 +21,41 @@ socket.on("products", (data) => {
                 <td><img src="${el.thumbnail}" class="product-img"/></td>
         </tr>`;
   });
-  console.log(htmlToRender);
+  // console.log(htmlToRender);
   if (document.querySelector("#products") != null) {
     document.querySelector("#products").innerHTML = htmlToRender;
   }
 });
+
+socket.on("chat", (data) => {
+  let htmlReduce = data.reduce(
+    (previewHtml, CurrentHtml) =>
+      previewHtml +
+      `
+  <tr>
+    <td> <h1> ${CurrentHtml.email}</h1> </td>
+    <td> <h1> ${CurrentHtml.message}</h1> </td>
+    <td> <h1> ${CurrentHtml.date}</h1> </td>
+  </tr>`,
+    ``
+  );
+  document.querySelector("#message").innerHTML = htmlReduce;
+});
+
+function addMessage(addMessage) {
+  let messageToAdd = {
+    email: addMessage.email.value,
+    message: addMessage.message.value,
+    date: new Date().toLocaleDateString(),
+  };
+  socket.emit("newMessage", messageToAdd);
+}
+
+function addProduct(addProduct) {
+  let productToAdd = {
+    title: addProduct.title.value,
+    price: addProduct.price.value,
+    thumbnail: addProduct.thumbnail.value,
+  };
+  socket.emit("addProduct", productToAdd);
+}

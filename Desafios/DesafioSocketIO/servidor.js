@@ -35,7 +35,8 @@ let chat = [
 ];
 
 io.on("connection", (socket) => {
-  console.log("new connection");
+  // TO VERIFY NEW CONNECTION (FROM THE FRONT)
+  // console.log("new connection");
 
   // ENVIAMOS A EL USUARIO LA LISTA DE PRODUCTOS QUE TENEMOS
   io.sockets.emit("products", arrayCompleto);
@@ -52,6 +53,7 @@ io.on("connection", (socket) => {
 
   // AL RECIBIR UN NUEVO PRODUCTO, LO ENVIAMOS DE NUEVO AL FRONT
   socket.on("addProduct", (data) => {
+    data.id = arrayCompleto[arrayCompleto.length - 1].id + 1;
     arrayCompleto.push(data);
     // LE PASAMOS AL FRONT EL NUEVO LISTADO DE PRODUCTOS
     io.sockets.emit("products", arrayCompleto);
@@ -82,7 +84,6 @@ app.post(
   },
   async (req, res) => {
     const { body } = req;
-    console.log(body);
     // ASIGNARLE UN ID AL OBJETO
     body.id = arrayCompleto.length + 1;
 
