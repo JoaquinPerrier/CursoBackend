@@ -1,12 +1,75 @@
+// SERVER
 const express = require("express");
 const app = express();
 const { engine } = require("express-handlebars");
+const Knex = require("knex");
 const Contenedor = require("./Contenedor");
 // SOCKET.IO
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, {
   cors: { origin: "*" },
 });
+
+// BASE DE DATOS
+const { options } = require("./options/optionsMDB");
+const knex = require("knex")(options);
+// CREA BASE DE DATOS
+/*knex.schema
+  .createTable("productos", (table) => {
+    table.increments("id"),
+      table.string("title"),
+      table.string("thumbnail"),
+      table.integer("price");
+  })
+  .then(() => {
+    console.log("todo bien");
+  })
+  .catch((err) => {
+    console.log(err);
+    throw new Error(err);
+  })
+  .finally(() => {
+    knex.destroy();
+  });*/
+
+// AGREGA PRODUCTOS INICIALES
+/*const arrayProductos = [
+  {
+    title: "sopa",
+    price: 120,
+    thumbnail: "http://localhost:8080/public/sopa.png",
+  },
+  {
+    title: "arroz",
+    price: 160,
+    thumbnail: "http://localhost:8080/public/arroz.jpg",
+  },
+  {
+    title: "maiz",
+    price: 445,
+    thumbnail: "http://localhost:8080/public/maiz.jpg",
+  },
+  {
+    title: "soda",
+    price: 125,
+    thumbnail: "http://localhost:8080/public/soda.jpg",
+  },
+  {
+    title: "leche",
+    price: 145,
+    thumbnail: "http://localhost:8080/public/leche.png",
+  },
+];
+knex("productos")
+  .insert(arrayProductos)
+  .then((res) => console.log("Todo ok", res))
+  .catch((e) => console.log(e));*/
+
+// TRAE TODOS LOS REGISTROS
+knex
+  .from("productos")
+  .select("*")
+  .then((res) => console.log("Todo ok", res));
 
 // CLASE CONTENEDOR
 let contenedor = new Contenedor("productos.txt");
