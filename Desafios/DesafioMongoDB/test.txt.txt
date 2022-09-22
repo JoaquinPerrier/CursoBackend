@@ -1,0 +1,60 @@
+use ecommerce
+
+db.createCollection("mensajes")
+
+db.createCollection("productos")
+
+db.productos.insert([{"title":"sopa","price":120,"thumbnail":"http://localhost:8080/public/sopa.png","id":1},
+    {"title":"arroz","price":160,"thumbnail":"http://localhost:8080/public/arroz.jpg","id":2},
+    {"title":"maiz","price":445,"thumbnail":"http://localhost:8080/public/maiz.jpg","id":3},
+    {"title":"soda","price":125,"thumbnail":"http://localhost:8080/public/soda.jpg","id":4},
+    {"title":"leche","price":145,"thumbnail":"http://localhost:8080/public/leche.png","id":5}])
+
+db.productos.insert([{"title":"Tomate","price":1110,"thumbnail":"http://localhost:8080/public/sopa.png","id":1},
+    {"title":"Fernet","price":1630,"thumbnail":"http://localhost:8080/public/arroz.jpg","id":2},
+    {"title":"Mesa","price":4450,"thumbnail":"http://localhost:8080/public/maiz.jpg","id":3},
+    {"title":"Silla","price":2125,"thumbnail":"http://localhost:8080/public/soda.jpg","id":4},
+    {"title":"Birrita","price":3145,"thumbnail":"http://localhost:8080/public/leche.png","id":5}])
+
+db.mensajes.insert([{
+    email: "admin@admin.com",
+    message: "welcome"
+  },{
+    email: "admin@admin.com",
+    message: "How are you?"
+  },{
+    email: "admin@admin.com",
+    message: "I´m fine"
+  },{
+    email: "admin@admin.com",
+    message: "Chat with the box under here!"
+  }])
+
+db.mensajes.find()
+db.productos.find()
+
+db.mensajes.estimatedDocumentCount()
+db.productos.estimatedDocumentCount()
+
+db.productos.insert({"title":"Remera RC","price":1950,"thumbnail":"http://localhost:8080/public/RC.jpg","id":1889})
+
+db.productos.find({"price": {$lt: 1000}})
+db.productos.find({ $and: [ { "price": {$gte: 1000}}, { "price": {$lte:3000}} ]})
+db.productos.find({"price": {$gt: 3000}})
+db.productos.find().skip(3).limit(1).sort({price:1})
+
+db.productos.update({},{$set: {"stock":100}},false,true)
+
+db.productos.updateMany({"price": {$lt: 4000}},{$set: {"stock":0}})
+
+db.productos.deleteMany({"price": {$lt: 1000}})
+
+db.createUser(
+  {
+    user: "pepe",
+    pwd: "asd456",
+    roles: [
+       { role: "read", db: "ecommerce" }
+    ]
+  }
+)
