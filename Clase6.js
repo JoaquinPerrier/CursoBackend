@@ -21,9 +21,24 @@ const app = express();
 // Opcional
 const PORT = 8080;
 
+const nombres = ["Luis", "Lucia", "Juan", "Augusto", "Ana"];
+const apellidos = ["Pieres", "Cacurri", "Bezzola", "Mei", "Alberca"];
+const colores = ["ROjo", "Verde", "Azul", "Magenta", "Amarillo"];
+
+const arrayMockeado = [];
+
+for (let i = 0; i <= 10; i++) {
+  let element = {
+    nombre: nombres[Math.trunc(Math.random() * 5)],
+    apellido: apellidos[Math.trunc(Math.random() * 5)],
+    color: colores[Math.trunc(Math.random() * 5)],
+  };
+  arrayMockeado.push(element);
+}
+
 // Routes
 app.get("/", (req, res) => {
-  res.send({ mensaje: "Hola mundo por express" });
+  res.send({ alumnos: arrayMockeado });
 });
 
 const server = app.listen(PORT, () => {
