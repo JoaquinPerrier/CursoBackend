@@ -11,13 +11,13 @@ exports.create_cart = async function (req, res) {
 };
 
 exports.delete_cart = async function (req, res) {
-  let cartAdded = await cartModel.deleteCart(req, res);
-  res.send({ message: "Delete OK", cartAdded: cartAdded });
+  let cartDeleted = await cartModel.deleteCart(req, res);
+  res.send({ message: "Delete OK", cartDeleted: cartDeleted });
 };
 
 exports.add_product_to_cart = async function (req, res, productToAdd) {
-  let cartAdded = await cartModel.addProductToCart(req, res, productToAdd);
-  res.send({ message: "Product added OK", cartAdded: cartAdded });
+  let productAdded = await cartModel.addProductToCart(req, res, productToAdd);
+  res.send({ message: "Product added OK", productAdded: productAdded });
 };
 
 exports.delete_product_from_cart = async function (req, res) {
