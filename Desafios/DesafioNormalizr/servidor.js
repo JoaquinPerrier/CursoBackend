@@ -144,6 +144,10 @@ app.get("/", (req, res) => {
   res.render("formulario");
 });
 
+app.get("/api/product-test", (req, res) => {
+  res.render("listadoProductos", { products: listadoMockeadoProd });
+});
+
 app.post(
   "/productos",
   async (req, res, next) => {

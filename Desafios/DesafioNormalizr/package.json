@@ -1,13 +1,26 @@
 {
-  "name": "desafionormalizr",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "name": "desafio_motores_plantillas",
+  "version": "0.0.0",
+  "description": "Formulario y listado de productos implementado con el procesador de plantillas Handlebars",
+  "main": "servidor.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon servidor.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nicolas9412/Coderhouse-Back-End-32080.git"
+  },
+  "author": "Leandro Olmos",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "knex": "^0.21.17",
+    "mysql": "^2.18.1",
+    "socket.io": "^4.5.1"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
+    "nodemon": "^2.0.19"
+  }
 }
