@@ -3,10 +3,15 @@ const { Router } = express;
 const routerProducts = Router();
 
 const productController = require("./controllers/productController");
+const productControllerMongo = require("./controllers/productControllerMongo");
 const ISADMIN = true;
 
 routerProducts.get("/products/:id?", (req, res) => {
-  productController.product_list(req, res);
+  // OBTIENE LOS PRODUCTOS DESDE .txt
+  //productController.product_list(req, res);
+
+  // OBTIENE LOS PRODUCTOS DESDE MONGUITO
+  productControllerMongo.product_list_mongo(req, res);
 });
 
 routerProducts.post(
