@@ -73,7 +73,7 @@ exports.editProductMongo = async function (req, res) {
   //console.log(productoToChange);
   // CAMBIAMOS TODO EL PRODUCTO POR EL QUE VIENE DESDE EL FRONT
 
-  const usuarioModificado = await Producto.updateOne(
+  const productoModificado = await Producto.updateOne(
     { id: id },
     {
       $set: {
@@ -86,22 +86,22 @@ exports.editProductMongo = async function (req, res) {
       },
     }
   );
-  console.log(usuarioModificado);
 
   await consulta();
 
   return datos;
 };
 
-/*exports.deleteProduct = function (req, res) {
+exports.deleteProductMongo = async function (req, res) {
   const { id } = req.params;
 
-  const productsFilteredById = arrayCompleto.filter((item) => item.id != id);
-  productsContainer.modificarObjeto(productsFilteredById);
-  return productsFilteredById;
+  const productoBorrado = await Producto.deleteOne({ id: id });
+
+  await consulta();
+  return datos;
 };
 
-exports.findProductForCart = function (req, res) {
+/*exports.findProductForCart = function (req, res) {
   const { id_prod } = req.params;
 
   const found = arrayCompleto.find((el) => el.id == id_prod);

@@ -72,8 +72,14 @@ routerProducts.delete(
       next();
     }
   },
-  (req, res) => {
+  // DELETE PARA .txt
+  /*(req, res) => {
     productController.delete_product(req, res);
+  }*/
+
+  // ELIMINA PRODUCTO
+  (req, res) => {
+    productControllerMongo.delete_product_mongo(req, res);
   }
 );
 
