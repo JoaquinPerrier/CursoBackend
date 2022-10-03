@@ -1,8 +1,8 @@
-const productModel = require("../models/productModel");
+const productModelMongo = require("../models/productModelMongo");
 
 exports.product_list_mongo = async function (req, res) {
-  let productListMongo = await productModel.findProducts(req, res);
-  res.send({ message: "Status OK", productList: productList });
+  let productListMongo = await productModelMongo.findProducts(req, res);
+  res.send({ message: "Status OK", productList: productListMongo });
 };
 
 /*exports.create_product = async function (req, res) {

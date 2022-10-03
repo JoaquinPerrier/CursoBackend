@@ -17,16 +17,13 @@ console.log("CONECTAO CON MONGUITO");
 if (!db) throw "can not connect to the db";
 
 const arrayProductos = await products.find({});
-//console.log(usuarios);
-
-obtenerProductos();
+console.log(arrayProductos);
 
 exports.findProductsMongo = function (req, res) {
   const { id } = req.params;
 
   // IF THERE IS NOT AN ID, WE RETURN THE FULL LIST
   if (id == null) {
-    obtenerProductos();
     return arrayProductos;
   } else {
     const found = arrayProductos.find((el) => el.id == id);
@@ -39,7 +36,7 @@ exports.findProductsMongo = function (req, res) {
   }
 };
 
-exports.createProduct = async function (req, res) {
+/*exports.createProduct = async function (req, res) {
   const { body } = req;
   console.log(req);
   await obtenerProductos();
@@ -97,4 +94,4 @@ exports.findProductForCart = function (req, res) {
   } else {
     return "PRODUCTO NO ENCONTRADO";
   }
-};
+};*/
