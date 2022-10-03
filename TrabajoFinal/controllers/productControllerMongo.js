@@ -1,16 +1,16 @@
 const productModelMongo = require("../models/productModelMongo");
 
 exports.product_list_mongo = async function (req, res) {
-  let productListMongo = await productModelMongo.findProducts(req, res);
+  let productListMongo = await productModelMongo.findProductsMongo(req, res);
   res.send({ message: "Status OK", productList: productListMongo });
 };
 
-/*exports.create_product = async function (req, res) {
-  let productAdded = await productModel.createProduct(req, res);
+exports.create_product_mongo = async function (req, res) {
+  let productAdded = await productModel.createProductMongo(req, res);
   res.send({ message: "Creation OK", productAdded: productAdded });
 };
 
-exports.edit_product = async function (req, res) {
+/*exports.edit_product = async function (req, res) {
   let productEditted = await productModel.editProduct(req, res);
   res.send({ message: "Editation OK", productEditted: productEditted });
 };

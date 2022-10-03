@@ -3,14 +3,14 @@ const { Schema, model } = require("mongoose");
 const ProductSchema = new Schema({
   title: { type: String, required: true, max: 100 },
   description: { type: String, required: true, max: 250 },
-  price: { type: String, required: true, max: 100 },
+  price: { type: Number, required: true, max: 100 },
   code: { type: Number, required: true },
   stock: { type: Number, required: true },
   thumbnail: { type: String, required: true },
-  timestamp: { type: Date, required: true },
+  timestamp: { type: Number, required: true },
   id: { type: Number, required: true },
 });
 
-const Productos = model("products", ProductSchema);
+const Producto = model("products", ProductSchema);
 
-module.exports = Productos;
+module.exports = Producto;

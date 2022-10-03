@@ -26,8 +26,11 @@ routerProducts.post(
       next();
     }
   },
-  (req, res) => {
+  /*(req, res) => {
     productController.create_product(req, res);
+  }*/
+  (req, res) => {
+    productControllerMongo.create_product_mongo(req, res);
   }
 );
 
