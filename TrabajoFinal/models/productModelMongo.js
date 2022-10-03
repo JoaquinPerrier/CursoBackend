@@ -62,32 +62,38 @@ exports.createProductMongo = async function (req, res) {
 
   const productoGuardado = await productoNuevo.save();
 
+  consulta();
   return productoNuevo;
 };
 
-/*exports.editProduct = function (req, res) {
+exports.editProductMongo = async function (req, res) {
   const { id } = req.params;
   const { body } = req;
-  //console.log(body);
 
-  const productoToChange = arrayCompleto.find((el) => el.id == id);
   //console.log(productoToChange);
   // CAMBIAMOS TODO EL PRODUCTO POR EL QUE VIENE DESDE EL FRONT
-  productoToChange.title = body.title;
-  productoToChange.description = body.description;
-  productoToChange.price = body.price;
-  productoToChange.code = body.code;
 
-  let lugarDelObjt = arrayCompleto.findIndex((el) => el.id == id);
+  const usuarioModificado = await Producto.updateOne(
+    { id: id },
+    {
+      $set: {
+        title: body.title,
+        description: body.description,
+        price: Number(body.price),
+        code: Number(body.code),
+        stock: Number(body.stock),
+        thumbnail: body.thumbnail,
+      },
+    }
+  );
+  console.log(usuarioModificado);
 
-  arrayCompleto[lugarDelObjt] = productoToChange;
+  await consulta();
 
-  productsContainer.modificarObjeto(arrayCompleto);
-
-  return productoToChange;
+  return datos;
 };
 
-exports.deleteProduct = function (req, res) {
+/*exports.deleteProduct = function (req, res) {
   const { id } = req.params;
 
   const productsFilteredById = arrayCompleto.filter((item) => item.id != id);

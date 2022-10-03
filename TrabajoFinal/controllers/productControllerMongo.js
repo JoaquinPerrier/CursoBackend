@@ -10,12 +10,12 @@ exports.create_product_mongo = async function (req, res) {
   res.send({ message: "Creation OK", productAdded: productAdded });
 };
 
-/*exports.edit_product = async function (req, res) {
-  let productEditted = await productModel.editProduct(req, res);
+exports.edit_product_mongo = async function (req, res) {
+  let productEditted = await productModelMongo.editProductMongo(req, res);
   res.send({ message: "Editation OK", productEditted: productEditted });
 };
 
-exports.delete_product = async function (req, res) {
+/*exports.delete_product = async function (req, res) {
   let productList = await productModel.deleteProduct(req, res);
   res.send({ message: "Delete OK", productList: productList });
 };

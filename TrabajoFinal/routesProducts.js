@@ -10,7 +10,7 @@ routerProducts.get("/products/:id?", (req, res) => {
   // OBTIENE LOS PRODUCTOS DESDE .txt
   //productController.product_list(req, res);
 
-  // OBTIENE LOS PRODUCTOS DESDE MONGUITO
+  // OBTIENE LOS PRODUCTOS DESDE MONGO
   productControllerMongo.product_list_mongo(req, res);
 });
 
@@ -26,9 +26,12 @@ routerProducts.post(
       next();
     }
   },
+  // EDIT PARA .txt
   /*(req, res) => {
     productController.create_product(req, res);
   }*/
+
+  // CREA PRODUCTO Y LO INSERTA A MONGO
   (req, res) => {
     productControllerMongo.create_product_mongo(req, res);
   }
@@ -46,8 +49,14 @@ routerProducts.put(
       next();
     }
   },
-  (req, res) => {
+  // PUT PARA .txt
+  /*(req, res) => {
     productController.edit_product(req, res);
+  }*/
+
+  // EDITA PRODUCTO Y LO INSERTA EN MONGO
+  (req, res) => {
+    productControllerMongo.edit_product_mongo(req, res);
   }
 );
 
