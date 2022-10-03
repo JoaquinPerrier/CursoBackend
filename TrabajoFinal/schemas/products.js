@@ -11,4 +11,6 @@ const ProductSchema = new Schema({
   id: { type: Number, required: true },
 });
 
-module.exports = model("products", ProductSchema);
+const Productos = model("products", ProductSchema);
+
+module.exports = Productos;

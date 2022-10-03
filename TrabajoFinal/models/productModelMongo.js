@@ -1,5 +1,5 @@
 const { connect } = require("mongoose");
-const { products } = require("../schemas/products");
+const Productos = require("../schemas/products");
 
 connectMG = async function () {
   try {
@@ -16,7 +16,7 @@ const db = connectMG();
 console.log("CONECTAO CON MONGUITO");
 if (!db) throw "can not connect to the db";
 
-const arrayProductos = await products.find({});
+const arrayProductos = Productos.find({});
 console.log(arrayProductos);
 
 exports.findProductsMongo = function (req, res) {
