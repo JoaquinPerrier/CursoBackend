@@ -6,7 +6,7 @@ exports.product_list_mongo = async function (req, res) {
 };
 
 exports.create_product_mongo = async function (req, res) {
-  let productAdded = await productModel.createProductMongo(req, res);
+  let productAdded = await productModelMongo.createProductMongo(req, res);
   res.send({ message: "Creation OK", productAdded: productAdded });
 };
 

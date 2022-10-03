@@ -47,7 +47,7 @@ exports.findProductsMongo = async function (req, res) {
 
 exports.createProductMongo = async function (req, res) {
   const { body } = req;
-  console.log(req);
+
   // ASIGNARLE UN ID AL OBJETO
   const productoNuevo = new Producto({
     title: body.title,
@@ -57,13 +57,12 @@ exports.createProductMongo = async function (req, res) {
     stock: Number(body.stock),
     thumbnail: body.thumbnail,
     timestamp: Date.now(),
-    id: arrayCompleto.length + 1,
+    id: datos.length + 1,
   });
-  console.log(body);
 
-  ingresarNuevoObj(body);
-  return body;
-  //console.log(arrayCompleto.length);
+  const productoGuardado = await productoNuevo.save();
+
+  return productoNuevo;
 };
 
 /*exports.editProduct = function (req, res) {
