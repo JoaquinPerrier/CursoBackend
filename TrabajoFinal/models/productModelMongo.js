@@ -63,7 +63,7 @@ exports.createProductMongo = async function (req, res) {
   const productoGuardado = await productoNuevo.save();
 
   consulta();
-  return productoNuevo;
+  return datos;
 };
 
 exports.editProductMongo = async function (req, res) {

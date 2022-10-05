@@ -3,20 +3,25 @@ const { Router } = express;
 const routerShopCart = Router();
 
 const cartController = require("./controllers/cartController");
+const cartControllerFB = require("./controllers/cartControllerFB");
 
 routerShopCart.post("/carrito", (req, res) => {
   cartController.create_cart(req, res);
 });
 
-routerShopCart.delete("/carrito/:id", (req, res) => {
+/*routerShopCart.delete("/carrito/:id", (req, res) => {
   cartController.delete_cart(req, res);
-});
+});*/
 
 routerShopCart.get("/carrito/:id/products", (req, res) => {
-  cartController.cart_list(req, res);
+  // OBTIENE CARRITOS DESDE .txt
+  // cartController.cart_list(req, res);
+
+  // OBTIENE CARRITOS DESDE FIREBASE
+  cartControllerFB.cart_list_FB(req, res);
 });
 
-routerShopCart.post("/carrito/:id/products/:id_prod", async (req, res) => {
+/*routerShopCart.post("/carrito/:id/products/:id_prod", async (req, res) => {
   // SEARCH FOR THE PRODUCT TO ADD
   let productToAdd = await productController.find_product_for_cart(req, res);
 
@@ -26,6 +31,6 @@ routerShopCart.post("/carrito/:id/products/:id_prod", async (req, res) => {
 
 routerShopCart.delete("/carrito/:id/products/:id_prod", async (req, res) => {
   cartController.delete_product_from_cart(req, res);
-});
+});*/
 
 module.exports = routerShopCart;
