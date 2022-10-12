@@ -5,12 +5,12 @@ exports.cart_list_FB = async function (req, res) {
   res.send({ message: "Status OK", cartList: cartList });
 };
 
-/*exports.create_cart_FB = async function (req, res) {
+exports.create_cart_FB = async function (req, res) {
   let cartAdded = await cartModelFB.createCartFB(req, res);
   res.send({ message: "Creation OK", cartAdded: cartAdded });
 };
 
-exports.delete_cart_FB = async function (req, res) {
+/*exports.delete_cart_FB = async function (req, res) {
   let cartDeleted = await cartModelFB.deleteCartFB(req, res);
   res.send({ message: "Delete OK", cartDeleted: cartDeleted });
 };

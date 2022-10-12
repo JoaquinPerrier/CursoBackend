@@ -6,7 +6,11 @@ const cartController = require("./controllers/cartController");
 const cartControllerFB = require("./controllers/cartControllerFB");
 
 routerShopCart.post("/carrito", (req, res) => {
-  cartController.create_cart(req, res);
+  // CREA CARRITO .txt
+  // cartController.create_cart(req, res);
+
+  // CREA CARRITO A FB
+  cartControllerFB.create_cart_FB(req, res);
 });
 
 /*routerShopCart.delete("/carrito/:id", (req, res) => {
