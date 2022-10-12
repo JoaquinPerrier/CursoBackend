@@ -13,9 +13,13 @@ routerShopCart.post("/carrito", (req, res) => {
   cartControllerFB.create_cart_FB(req, res);
 });
 
-/*routerShopCart.delete("/carrito/:id", (req, res) => {
-  cartController.delete_cart(req, res);
-});*/
+routerShopCart.delete("/carrito/:id", (req, res) => {
+  // BORRA CARRITO DESDE .txt
+  //cartController.delete_cart(req, res);
+
+  // BORRA CARRITO A FB
+  cartControllerFB.delete_cart_FB(req, res);
+});
 
 routerShopCart.get("/carrito/:id/products", (req, res) => {
   // OBTIENE CARRITOS DESDE .txt

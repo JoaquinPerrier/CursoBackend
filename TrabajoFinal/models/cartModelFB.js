@@ -63,3 +63,28 @@ exports.createCartFB = async function (req, res) {
 
   return newCart;
 };
+
+exports.deleteCartFB = async function (req, res) {
+  const { id } = req.params;
+  let fb_id = 0;
+
+  const dataFormateada = allShoppingCarts.docs.map((item) => ({
+    id: item.id,
+    data: item.data(),
+  }));
+
+  // BUSCAR EL ID A ELIMINAR
+  dataFormateada.forEach((item) => {
+    item.data.id == id ? (fb_id = item.id) : item.data.id;
+  });
+
+  if (fb_id == 0) {
+    return "NO EXISTE UN CARRITO CON ESA ID";
+  }
+
+  await db.collection("carts").doc(fb_id).delete();
+
+  await obtenerCarritos();
+
+  return fb_id;
+};
