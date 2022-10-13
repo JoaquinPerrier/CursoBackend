@@ -1,4 +1,5 @@
 const admin = require("firebase-admin");
+const FieldValue = require("firebase-admin").firestore.FieldValue;
 
 const serviceAccount = require("../utils/db/tpfinalch-firebase-adminsdk-yh5o9-65ca61ffeb.json");
 
@@ -83,6 +84,36 @@ exports.deleteCartFB = async function (req, res) {
   }
 
   await db.collection("carts").doc(fb_id).delete();
+
+  await obtenerCarritos();
+
+  return fb_id;
+};
+
+exports.addProductToCartFB = async function (req, res, productToAdd) {
+  const { id } = req.params;
+  let fb_id = 0;
+
+  const dataFormateada = allShoppingCarts.docs.map((item) => ({
+    id: item.id,
+    data: item.data(),
+  }));
+
+  // BUSCAR EL ID DEL CARRITO A AGREGARLE EL PROD
+  dataFormateada.forEach((item) => {
+    item.data.id == id ? (fb_id = item.id) : item.data.id;
+  });
+
+  if (fb_id == 0) {
+    return "NO EXISTE UN CARRITO CON ESA ID";
+  }
+
+  await db
+    .collection("carts")
+    .doc(fb_id)
+    .update({
+      products: FieldValue.arrayUnion(productToAdd),
+    });
 
   await obtenerCarritos();
 

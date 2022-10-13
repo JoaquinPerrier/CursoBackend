@@ -4,6 +4,7 @@ const routerShopCart = Router();
 
 const cartController = require("./controllers/cartController");
 const cartControllerFB = require("./controllers/cartControllerFB");
+const productController = require("./controllers/productController");
 
 routerShopCart.post("/carrito", (req, res) => {
   // CREA CARRITO .txt
@@ -29,15 +30,18 @@ routerShopCart.get("/carrito/:id/products", (req, res) => {
   cartControllerFB.cart_list_FB(req, res);
 });
 
-/*routerShopCart.post("/carrito/:id/products/:id_prod", async (req, res) => {
+routerShopCart.post("/carrito/:id/products/:id_prod", async (req, res) => {
   // SEARCH FOR THE PRODUCT TO ADD
   let productToAdd = await productController.find_product_for_cart(req, res);
 
-  // ADDING THE PRODUCT TO THE SHOPPING CART
-  cartController.add_product_to_cart(req, res, productToAdd);
+  // ADDING THE PRODUCT TO THE SHOPPING CART .txt
+  //cartController.add_product_to_cart(req, res, productToAdd);
+
+  // ADDING THE PRODUCT TO THE SHOPPING CART IN FB
+  cartControllerFB.add_product_to_cart_FB(req, res, productToAdd);
 });
 
-routerShopCart.delete("/carrito/:id/products/:id_prod", async (req, res) => {
+/*routerShopCart.delete("/carrito/:id/products/:id_prod", async (req, res) => {
   cartController.delete_product_from_cart(req, res);
 });*/
 

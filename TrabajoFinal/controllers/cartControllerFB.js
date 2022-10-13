@@ -15,12 +15,16 @@ exports.delete_cart_FB = async function (req, res) {
   res.send({ message: "Delete OK", cartDeletedID: cartDeletedID });
 };
 
-/*exports.add_product_to_cart_FB = async function (req, res, productToAdd) {
-  let productAdded = await cartModelFB.addProductToCartFB(req, res, productToAdd);
+exports.add_product_to_cart_FB = async function (req, res, productToAdd) {
+  let productAdded = await cartModelFB.addProductToCartFB(
+    req,
+    res,
+    productToAdd
+  );
   res.send({ message: "Product added OK", productAdded: productAdded });
 };
 
-exports.delete_product_from_cart_FB = async function (req, res) {
+/*exports.delete_product_from_cart_FB = async function (req, res) {
   let cartAdded = await cartModelFB.deleteProductFromCartFB(req, res);
   res.send({ message: "Product deleted OK", cartAdded: cartAdded });
 };
