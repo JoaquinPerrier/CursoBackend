@@ -41,8 +41,12 @@ routerShopCart.post("/carrito/:id/products/:id_prod", async (req, res) => {
   cartControllerFB.add_product_to_cart_FB(req, res, productToAdd);
 });
 
-/*routerShopCart.delete("/carrito/:id/products/:id_prod", async (req, res) => {
-  cartController.delete_product_from_cart(req, res);
-});*/
+routerShopCart.delete("/carrito/:id/products/:id_prod", async (req, res) => {
+  // BORRA PRODUCTO DE CARRITO .txt
+  // cartController.delete_product_from_cart(req, res);
+
+  // BORRA PRODUCTO DE CARRITO DE FB
+  cartControllerFB.delete_product_from_cart_FB(req, res);
+});
 
 module.exports = routerShopCart;

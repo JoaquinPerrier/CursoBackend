@@ -119,3 +119,32 @@ exports.addProductToCartFB = async function (req, res, productToAdd) {
 
   return fb_id;
 };
+
+exports.deleteProductFromCartFB = async function (req, res, productToAdd) {
+  const { id, id_prod } = req.params;
+  let fb_id = 0;
+
+  const dataFormateada = allShoppingCarts.docs.map((item) => ({
+    id: item.id,
+    data: item.data(),
+  }));
+
+  // BUSCAR EL ID DEL CARRITO A AGREGARLE EL PROD
+  dataFormateada.forEach((item) => {
+    item.data.id == id ? (fb_id = item.id) : item.data.id;
+  });
+
+  if (fb_id == 0) {
+    return "NO EXISTE UN CARRITO CON ESA ID";
+  }
+
+  await db
+    .collection("carts")
+    .doc(fb_id)
+    .update({
+      "products.id": FieldValue.arrayRemove(id_prod),
+    });
+  await obtenerCarritos();
+
+  return fb_id;
+};
