@@ -1,6 +1,7 @@
 const express = require("express");
 const coockieParser = require("cookie-parser");
 const session = require("express-session");
+const { engine } = require("express-handlebars");
 // CON MONGO
 const MongoStore = require("connect-mongo");
 
@@ -15,6 +16,23 @@ app.use(
     secret: "Secreto",
     resave: false,
     saveUninitialized: false,
+  })
+);
+
+app.use(express.json());
+app.use("/public", express.static(__dirname + "/public"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + "/public"));
+
+app.set("view engine", "hbs");
+app.set("views", "./views");
+app.engine(
+  "hbs",
+  engine({
+    extname: ".hbs",
+    defaultLayout: "index.hbs",
+    layoutsDir: __dirname + "/views/layouts",
+    partialsDir: __dirname + "/views/partials",
   })
 );
 
@@ -41,10 +59,6 @@ function checkAdmin(req, res, next) {
   next();
 }
 
-app.get("/algomuyimportante", checkAdmin, (req, res) => {
-  res.send("Reporte de entradas truchas");
-});
-
 app.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -54,35 +68,31 @@ app.get("/logout", (req, res) => {
   });
 });
 
-app.get("/root/:name", (req, res) => {
-  let { name } = req.params;
-  if (!req.session[name]) {
-    req.session[name] = {};
-    req.session[name].name = name;
-    req.session[name].cantidadDeLogins = 1;
-  } else {
-    req.session[name].cantidadDeLogins += 1;
-  }
-  res.send(
-    `<h1>Te damos la bienvenida ${name}</h1>. Visitaste ${req.session[name].cantidadDeLogins} veces`
-  );
+app.get("/", async (req, res) => {
+  res.render("formLogin");
 });
 
-app.get("/olvidar", (req, res) => {
+app.post("/home", (req, res) => {
+  let { nombre } = req.body;
+  console.log(nombre);
+  if (!req.session[nombre]) {
+    req.session[nombre] = {};
+    req.session[nombre].nombre = nombre;
+    req.session[nombre].cantidadDeLogins = 1;
+  } else {
+    req.session[nombre].cantidadDeLogins += 1;
+  }
+
+  res.render("home", { nombre });
+});
+
+app.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.json({ status: "Logout ERROR", body: err });
     }
     res.send("Logout ok!");
   });
-});
-
-app.get("/productos", async (req, res) => {
-  if (arrayCompleto.length !== 0) {
-    res.render("listadoProductos", { arrayCompleto });
-  } else {
-    res.render("sinProductos");
-  }
 });
 
 // LEVANDANDO SERVER
