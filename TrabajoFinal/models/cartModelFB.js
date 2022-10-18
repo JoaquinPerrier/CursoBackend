@@ -142,7 +142,7 @@ exports.deleteProductFromCartFB = async function (req, res, productToAdd) {
     .collection("carts")
     .doc(fb_id)
     .update({
-      "products.id": FieldValue.arrayRemove(id_prod),
+      products: FieldValue.arrayRemove(id_prod),
     });
   await obtenerCarritos();
 
