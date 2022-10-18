@@ -1,23 +1,12 @@
 const express = require("express");
 const coockieParser = require("cookie-parser");
 const session = require("express-session");
-// CON FILESTORE, LAS SESSIONES NO SE BORRAN CUANDO SE CAE EL SERVER
-//const FileStore = require("session-file-store")(session);
-//REDIS
-//const redis = require("redis");
-/*const client = redis.createClient({
-  legacyMode: true,
-});
-client.connect();
-const RedisStore = require("connect-redis")(session);*/
 // CON MONGO
 const MongoStore = require("connect-mongo");
 
 const app = express();
-//app.use(coockieParser("A secret"));
 app.use(
   session({
-    //store: new RedisStore({  host: "localhost",  port: 6379, ttl: 300,  client, }),
     store: MongoStore.create({
       mongoUrl:
         "mongodb+srv://jperrier:qawsed@cluster0.wumbvqn.mongodb.net/test",
@@ -28,32 +17,6 @@ app.use(
     saveUninitialized: false,
   })
 );
-
-//////////////////////////
-// COOKIES
-// CREA UNA COOKIE SIN FIRMA
-/*.get("/crearcookie", (req, res) => {
-  res
-    .cookie("logeado", "true")
-    .status(400)
-    .send("<h1> GUARDAMOS TU COOKIE </h1>");
-});*/
-
-// CREA COOKIE CON FIRMA
-/*app.get("/crearcookiefirmada", (req, res) => {
-  res
-    .cookie("nombre", "morchicha", { signed: true, httpOnly: true })
-    .status(400)
-    .send("<h1> GUARDAMOS TU COOKIE FIRMADITA</h1>");
-});*/
-
-// RECUPERA COOKIE
-/*app.get("/recuperarcookie", (req, res) => {
-  console.log("///////////////////////////////");
-  console.log(req.cookies);
-  console.log(req.signedCookies);
-  return res.send("<h1>mira la consola para ver si hay cookies</h1>");
-});*/
 
 //////////////////////////
 // SESSIONS
@@ -104,6 +67,7 @@ app.get("/root/:name", (req, res) => {
     `<h1>Te damos la bienvenida ${name}</h1>. Visitaste ${req.session[name].cantidadDeLogins} veces`
   );
 });
+
 app.get("/olvidar", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -111,6 +75,14 @@ app.get("/olvidar", (req, res) => {
     }
     res.send("Logout ok!");
   });
+});
+
+app.get("/productos", async (req, res) => {
+  if (arrayCompleto.length !== 0) {
+    res.render("listadoProductos", { arrayCompleto });
+  } else {
+    res.render("sinProductos");
+  }
 });
 
 // LEVANDANDO SERVER
