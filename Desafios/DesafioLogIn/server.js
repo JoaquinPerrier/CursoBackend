@@ -16,6 +16,7 @@ app.use(
     secret: "Secreto",
     resave: false,
     saveUninitialized: false,
+    cookie: { maxAge: 6000 },
   })
 );
 
@@ -36,28 +37,34 @@ app.engine(
   })
 );
 
-//////////////////////////
-// SESSIONS
-app.get("/login", (req, res) => {
-  const { user, pass } = req.query;
-  if (user !== "pepe" || pass != "asdasd") {
-    return res.send("login failed");
+app.get("/", async (req, res) => {
+  res.render("formLogin");
+});
+
+app.post("/", (req, res) => {
+  try {
+    const { username } = req.body;
+    req.session.username = username;
+
+    res.render("home", { username });
+  } catch (error) {
+    return res.status(500).send({ status: "Log In error", body: error });
   }
-  req.session.user = user;
-  req.session.admin = true;
-  res.send("Login success!");
 });
 
-app.get("/test", (req, res) => {
-  console.log(req.session.user);
-  console.log(req.session.admin);
-  res.send("Estas logeado");
+app.get("/home", (req, res) => {
+  try {
+    if (req.session.username != undefined) {
+      res.render("home", { username: req.session.username });
+    } else {
+      res.render("formLogin");
+    }
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ status: "Get page Log In error", body: error });
+  }
 });
-
-function checkAdmin(req, res, next) {
-  if (!req.session.admin) res.status(403).send("FALTA AUTORIZACION");
-  next();
-}
 
 app.get("/logout", (req, res) => {
   req.session.destroy((err) => {
@@ -65,33 +72,6 @@ app.get("/logout", (req, res) => {
       return res.json({ status: "Logout ERROR", body: err });
     }
     res.send("Logout exitoso!");
-  });
-});
-
-app.get("/", async (req, res) => {
-  res.render("formLogin");
-});
-
-app.post("/home", (req, res) => {
-  let { nombre } = req.body;
-  console.log(nombre);
-  if (!req.session[nombre]) {
-    req.session[nombre] = {};
-    req.session[nombre].nombre = nombre;
-    req.session[nombre].cantidadDeLogins = 1;
-  } else {
-    req.session[nombre].cantidadDeLogins += 1;
-  }
-
-  res.render("home", { nombre });
-});
-
-app.get("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      return res.json({ status: "Logout ERROR", body: err });
-    }
-    res.send("Logout ok!");
   });
 });
 
