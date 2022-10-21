@@ -72,6 +72,7 @@ app.engine(
   })
 );
 
+// Routes
 app.get("/", (req, res) => routes.formulario(req, res));
 
 app.post(
@@ -83,7 +84,14 @@ app.post(
   (req, res) => routes.ingresarProd(req, res, arrayCompleto)
 );
 
-app.get("/productos", routes.mostrarProductos);
+app.get(
+  "/productos",
+  async (req, res, next) => {
+    await obtenerProductos();
+    next();
+  },
+  routes.mostrarProductos
+);
 
 //CONEXION AL SERVIDOR
 httpServer.listen(8080, () => {

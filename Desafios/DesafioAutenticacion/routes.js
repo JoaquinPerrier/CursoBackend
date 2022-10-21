@@ -70,11 +70,12 @@ function ingresarProd(req, res, arrayCompleto) {
 
   console.log(body);
   ingresarNuevoObj(body);
-  res.redirect("/");
+  res.redirect("/productos");
   console.log(arrayCompleto.length);
 }
 
 function mostrarProductos(req, res, arrayCompleto) {
+  await;
   if (arrayCompleto.length !== 0) {
     res.render("listadoProductos", { root: __dirname + "/public" });
   } else {
