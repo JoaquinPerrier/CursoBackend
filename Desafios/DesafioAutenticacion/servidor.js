@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
 const { engine } = require("express-handlebars");
+const routes = require("./routes");
+
 const Contenedor = require("./Contenedor");
+
 // SOCKET.IO
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, {
@@ -14,9 +17,6 @@ let arrayCompleto;
 let obtenerProductos = async () => {
   // DEVUELVE TODO EL CONTENIDO DEL ARCHIVO:
   arrayCompleto = await contenedor.getAll();
-};
-let ingresarNuevoObj = async (newObj) => {
-  await contenedor.save(newObj);
 };
 obtenerProductos();
 
@@ -72,9 +72,7 @@ app.engine(
   })
 );
 
-app.get("/", (req, res) => {
-  res.render("formulario");
-});
+app.get("/", (req, res) => routes.formulario(req, res));
 
 app.post(
   "/productos",
@@ -82,25 +80,10 @@ app.post(
     await obtenerProductos();
     next();
   },
-  async (req, res) => {
-    const { body } = req;
-    // ASIGNARLE UN ID AL OBJETO
-    body.id = arrayCompleto.length + 1;
-
-    //console.log(body);
-    ingresarNuevoObj(body);
-    res.redirect("/");
-    console.log(arrayCompleto.length);
-  }
+  (req, res) => routes.ingresarProd(req, res, arrayCompleto)
 );
 
-app.get("/productos", async (req, res) => {
-  if (arrayCompleto.length !== 0) {
-    res.render("listadoProductos", { root: __dirname + "/public" });
-  } else {
-    res.render("sinProductos");
-  }
-});
+app.get("/productos", routes.mostrarProductos);
 
 //CONEXION AL SERVIDOR
 httpServer.listen(8080, () => {
