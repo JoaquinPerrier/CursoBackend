@@ -224,8 +224,8 @@ app.post(
 
 app.get(
   "/productos",
+  checkAuthentication,
   async (req, res, next) => {
-    await checkAuthentication();
     await obtenerProductos();
     next();
   },
@@ -234,5 +234,5 @@ app.get(
 
 //CONEXION AL SERVIDOR
 httpServer.listen(8080, () => {
-  console.log(`Servidor http iniciado en el puerto `);
+  console.log(`Servidor http iniciado en el puerto 8080`);
 });

@@ -14,7 +14,7 @@ function getLogin(req, res) {
   if (req.isAuthenticated()) {
     const { username, password } = req.user;
     const user = { username, password };
-    res.render("profileUser", { user });
+    res.render("listadoProductos", { root: __dirname + "/public" });
   } else {
     res.render("login");
   }
@@ -24,7 +24,7 @@ function getSignup(req, res) {
   if (req.isAuthenticated()) {
     const { username, password } = req.user;
     const user = { username, password };
-    res.render("profileUser", { user });
+    res.render("listadoProductos", { root: __dirname + "/public" });
   } else {
     res.render("signup");
   }
@@ -33,13 +33,13 @@ function getSignup(req, res) {
 function postLogin(req, res) {
   const { username, password } = req.user;
   const user = { username, password };
-  res.render("profileUser", { user });
+  res.render("listadoProductos", { root: __dirname + "/public" });
 }
 
 function postSignup(req, res) {
   const { username, password } = req.user;
   const user = { username, password };
-  res.render("profileUser", { user });
+  res.render("listadoProductos", { root: __dirname + "/public" });
 }
 
 function getFaillogin(req, res) {
@@ -75,7 +75,6 @@ function ingresarProd(req, res, arrayCompleto) {
 }
 
 function mostrarProductos(req, res, arrayCompleto) {
-  await;
   if (arrayCompleto.length !== 0) {
     res.render("listadoProductos", { root: __dirname + "/public" });
   } else {
