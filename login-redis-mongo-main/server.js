@@ -26,7 +26,7 @@ function createHash(password) {
 }
 
 mongoose
-  .connect("mongodb://localhost:27017/ecommerce")
+  .connect("mongodb://localhost:27017/passport")
   .then(() => console.log("Connected to DB"))
   .catch((e) => {
     console.error(e);
