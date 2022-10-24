@@ -12,9 +12,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const Usuarios = require("./models/usuarios");
 
 const bcrypt = require("bcrypt");
-const routes = require("./routes");
 const mongoose = require("mongoose");
-const { engine } = require("express-handlebars");
 
 const redis = require("redis");
 const client = redis.createClient({
