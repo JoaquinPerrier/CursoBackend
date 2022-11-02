@@ -1,5 +1,8 @@
+const path = require("path");
 const dotenv = require("dotenv");
-require("dotenv").config();
+require("dotenv").config({
+  path: path.resolve(__dirname, ".env"),
+});
 const parseArgs = require("minimist");
 
 const yargs = require("yargs/yargs")(process.argv.slice(2));
