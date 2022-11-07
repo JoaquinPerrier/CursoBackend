@@ -3,9 +3,13 @@ const app = express();
 const { engine } = require("express-handlebars");
 const routes = require("./routes");
 
+// Yargs para ingresar al puerto
 const yargs = require("yargs")(process.argv.slice(2));
 const args = yargs.default({ puerto: 8080 }).argv;
-console.log(args);
+
+// Dotenv para obtener claves y secrets como variables de entorno
+require("dotenv").config();
+console.log(process.env.PUERTO_MONGOOSE);
 
 const Contenedor = require("./Contenedor");
 
@@ -34,7 +38,7 @@ function createHash(password) {
 }
 
 mongoose
-  .connect("mongodb://localhost:27017/passport")
+  .connect(process.env.PUERTO_MONGOOSE)
   .then(() => console.log("Connected to DB"))
   .catch((e) => {
     console.error(e);
@@ -109,7 +113,7 @@ passport.deserializeUser((id, done) => {
 app.use(
   session({
     store: new RedisStore({ host: "localhost", port: 6379, client, ttl: 300 }),
-    secret: "keyboard cat",
+    secret: process.env.SECRET,
     cookie: {
       httpOnly: false,
       secure: false,
