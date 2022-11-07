@@ -82,7 +82,20 @@ function mostrarProductos(req, res, arrayCompleto) {
   }
 }
 
+function mostrarDataServer(req, res) {
+  const info = {
+    argsEntrada: process.argv.slice(2),
+    sistemaOperativo: process.platform,
+    versionNode: process.version,
+    memoriaReservada: process.memoryUsage(),
+    processID: process.pid,
+    carpetaDelProyecto: process.cwd(),
+  };
+  res.send(info);
+}
+
 module.exports = {
+  mostrarDataServer,
   formulario,
   ingresarProd,
   mostrarProductos,

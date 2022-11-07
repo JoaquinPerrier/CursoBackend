@@ -9,7 +9,6 @@ const args = yargs.default({ puerto: 8080 }).argv;
 
 // Dotenv para obtener claves y secrets como variables de entorno
 require("dotenv").config();
-console.log(process.env.PUERTO_MONGOOSE);
 
 const Contenedor = require("./Contenedor");
 
@@ -211,7 +210,7 @@ app.post(
   routes.postSignup
 );
 app.get("/failsignup", routes.getFailsignup);
-app.get("/logout", routes.getLogout);
+app.get("/logout", routes.mostrarDataServer);
 
 function checkAuthentication(req, res, next) {
   if (req.isAuthenticated()) {
@@ -239,6 +238,8 @@ app.get(
   },
   routes.mostrarProductos
 );
+
+app.get("/info", routes.mostrarDataServer);
 
 //CONEXION AL SERVIDOR
 httpServer.listen(args.puerto, () => {
