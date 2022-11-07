@@ -1,7 +1,129 @@
 const express = require("express");
 const app = express();
 const { engine } = require("express-handlebars");
+const routes = require("./routes");
+
+const yargs = require("yargs")(process.argv.slice(2));
+const args = yargs.default({ puerto: 8080 }).argv;
+console.log(args);
+
 const Contenedor = require("./Contenedor");
+
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+
+const Usuarios = require("./models/usuarios");
+
+const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
+
+const redis = require("redis");
+const client = redis.createClient({
+  legacyMode: true,
+});
+client.connect();
+const RedisStore = require("connect-redis")(session);
+
+function isValidPassword(user, password) {
+  return bcrypt.compareSync(password, user.password);
+}
+
+function createHash(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+}
+
+mongoose
+  .connect("mongodb://localhost:27017/passport")
+  .then(() => console.log("Connected to DB"))
+  .catch((e) => {
+    console.error(e);
+    throw "can not connect to the db";
+  });
+
+passport.use(
+  "login",
+  new LocalStrategy((username, password, done) => {
+    Usuarios.findOne({ username }, (err, user) => {
+      if (err) return done(err);
+
+      if (!user) {
+        console.log("User Not Found with username " + username);
+        return done(null, false);
+      }
+
+      if (!isValidPassword(user, password)) {
+        console.log("Invalid Password");
+        return done(null, false);
+      }
+
+      return done(null, user);
+    });
+  })
+);
+
+passport.use(
+  "signup",
+  new LocalStrategy(
+    {
+      passReqToCallback: true,
+    },
+    (req, username, password, done) => {
+      Usuarios.findOne({ username: username }, function (err, user) {
+        if (err) {
+          console.log("Error in SignUp: " + err);
+          return done(err);
+        }
+
+        if (user) {
+          console.log("User already exists");
+          return done(null, false);
+        }
+
+        const newUser = {
+          username: username,
+          password: createHash(password),
+        };
+        Usuarios.create(newUser, (err, userWithId) => {
+          if (err) {
+            console.log("Error in Saving user: " + err);
+            return done(err);
+          }
+          console.log(user);
+          console.log("User Registration succesful");
+          return done(null, userWithId);
+        });
+      });
+    }
+  )
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+
+passport.deserializeUser((id, done) => {
+  Usuarios.findById(id, done);
+});
+
+app.use(
+  session({
+    store: new RedisStore({ host: "localhost", port: 6379, client, ttl: 300 }),
+    secret: "keyboard cat",
+    cookie: {
+      httpOnly: false,
+      secure: false,
+      maxAge: 86400000, // 1 dia
+    },
+    rolling: true,
+    resave: true,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 // SOCKET.IO
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, {
@@ -14,9 +136,6 @@ let arrayCompleto;
 let obtenerProductos = async () => {
   // DEVUELVE TODO EL CONTENIDO DEL ARCHIVO:
   arrayCompleto = await contenedor.getAll();
-};
-let ingresarNuevoObj = async (newObj) => {
-  await contenedor.save(newObj);
 };
 obtenerProductos();
 
@@ -72,9 +191,31 @@ app.engine(
   })
 );
 
-app.get("/", (req, res) => {
-  res.render("formulario");
-});
+// Routes
+app.get("/", routes.getRoot);
+app.get("/login", routes.getLogin);
+app.post(
+  "/login",
+  passport.authenticate("login", { failureRedirect: "/faillogin" }),
+  routes.postLogin
+);
+app.get("/faillogin", routes.getFaillogin);
+app.get("/signup", routes.getSignup);
+app.post(
+  "/signup",
+  passport.authenticate("signup", { failureRedirect: "/failsignup" }),
+  routes.postSignup
+);
+app.get("/failsignup", routes.getFailsignup);
+app.get("/logout", routes.getLogout);
+
+function checkAuthentication(req, res, next) {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+}
 
 app.post(
   "/productos",
@@ -82,27 +223,20 @@ app.post(
     await obtenerProductos();
     next();
   },
-  async (req, res) => {
-    const { body } = req;
-    // ASIGNARLE UN ID AL OBJETO
-    body.id = arrayCompleto.length + 1;
-
-    //console.log(body);
-    ingresarNuevoObj(body);
-    res.redirect("/");
-    console.log(arrayCompleto.length);
-  }
+  (req, res) => routes.ingresarProd(req, res, arrayCompleto)
 );
 
-app.get("/productos", async (req, res) => {
-  if (arrayCompleto.length !== 0) {
-    res.render("listadoProductos", { root: __dirname + "/public" });
-  } else {
-    res.render("sinProductos");
-  }
-});
+app.get(
+  "/productos",
+  checkAuthentication,
+  async (req, res, next) => {
+    await obtenerProductos();
+    next();
+  },
+  routes.mostrarProductos
+);
 
 //CONEXION AL SERVIDOR
-httpServer.listen(8080, () => {
-  console.log(`Servidor http iniciado en el puerto `);
+httpServer.listen(args.puerto, () => {
+  console.log(`Servidor http iniciado en el puerto ${args.puerto}`);
 });
