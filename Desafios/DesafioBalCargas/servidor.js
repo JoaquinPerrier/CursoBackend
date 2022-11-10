@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const { engine } = require("express-handlebars");
 const routes = require("./routes");
+const cluster = require("cluster");
+const os = require("os");
 
 // Yargs para ingresar al puerto
 const yargs = require("yargs")(process.argv.slice(2));
@@ -242,6 +244,40 @@ app.get(
 app.get("/info", routes.mostrarDataServer);
 
 //CONEXION AL SERVIDOR
-httpServer.listen(args.puerto, () => {
+/*httpServer.listen(args.puerto, () => {
   console.log(`Servidor http iniciado en el puerto ${args.puerto}`);
-});
+});*/
+
+/* Para probar con FOREVER, descomentar el codigo de abajo y utilizar el siguiente comando: */
+/* forever start index.js --mode 'cluster' */
+
+const numCPUs = os.cpus().length;
+const port = args.puerto;
+console.log(port);
+const argv = yargs.option("mode", {
+  alias: "m",
+  type: "string",
+  description: "Modo de ejecución del servidor",
+  choices: ["fork", "cluster"],
+  default: "fork",
+}).argv;
+if (argv.mode === "cluster") {
+  if (cluster.isPrimary) {
+    console.log(`Master ${process.pid} is running`);
+    // Fork workers.
+    for (let i = 0; i < numCPUs; i++) {
+      cluster.fork();
+    }
+    cluster.on("exit", (worker, code, signal) => {
+      cluster.fork();
+      console.log(`worker ${worker.process.pid} died`);
+    });
+  } else {
+    httpServer.listen(port);
+    console.log(`Worker ${process.pid} started`);
+  }
+} else {
+  httpServer.listen(port, () =>
+    console.log(`Servidor escuchando en el puerto ${args.puerto}`)
+  );
+}
