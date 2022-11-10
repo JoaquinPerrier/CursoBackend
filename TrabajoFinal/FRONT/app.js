@@ -20,7 +20,7 @@ function mostrarJuegos(data) {
             <img class="item-image rounded img-fluid" src=${item.thumbnail}>
             <p>${item.description}</p>
             </div>
-            <div class="item-details">
+            <div class="item-details">  
             
             <div class="precioCadaProd col-6">
             

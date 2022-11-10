@@ -1,4 +1,72 @@
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
+}
+
+#listadoProductos{
+    width: 75%;
+    margin: 0 auto;
+}
+
+.juegoconteiner{
+    display: flex;
+    flex-direction: column;
+}
+.item {
+    border: 2px solid rgb(0, 145, 36);
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #21252b;
+}
+
+.item-title {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.item-image {
+    height: 13rem;
+    margin-left: 2.2rem;
+    box-shadow: 0 11px 8px -6px rgba(0, 134, 11, 0.392);
+}
+
+.item-details {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    margin: 20px 0px 15px;
+}
+
+
+.precioCadaProd{
+    display: flex;
+    flex-direction: column;
+}
+.precioCadaProd span{
+    display: flex;
+    flex-direction: row;
+}
+  
+.imgdesc{
+      display: flex;
+}
+.imgdesc p{
+      color: white;
+      margin: 0 1rem;
+      text-align:justify;  
+}
+
+.item-details h4{
+        color: white;
+        margin: 0 0.3rem;
+        text-align:justify;  
+}
+
+.item h3{
+    color: white;
+    font-weight:bold;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
 }
