@@ -90,6 +90,8 @@ function mostrarDataServer(req, res) {
     memoriaReservada: process.memoryUsage(),
     processID: process.pid,
     carpetaDelProyecto: process.cwd(),
+    // INFO DESAFIO DE BALANCE DE CARGA
+    cantidadProcesadores: require("os").cpus().length,
   };
   res.send(info);
 }

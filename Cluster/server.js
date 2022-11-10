@@ -23,6 +23,6 @@ if (cluster.isMaster) {
       res.end(`GOLPE AL ENDPOINT ${process.pid} !`);
       console.log(`GOLPE AL ENDPOINT ${process.pid} !`);
     })
-    .listen(8000);
+    .listen(8080);
   console.log(`INICIE UN Worker NUEVO ${process.pid}`);
 }
