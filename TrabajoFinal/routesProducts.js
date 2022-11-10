@@ -2,7 +2,7 @@ const express = require("express");
 const { Router } = express;
 const routerProducts = Router();
 
-const productController = require("./controllers/productController");
+//const productController = require("./controllers/productController");
 const productControllerMongo = require("./controllers/productControllerMongo");
 const ISADMIN = true;
 
