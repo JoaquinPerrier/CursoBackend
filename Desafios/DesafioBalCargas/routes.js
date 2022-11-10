@@ -63,15 +63,9 @@ function formulario(req, res) {
   res.render("formulario");
 }
 
-function ingresarProd(req, res, arrayCompleto) {
-  const { body } = req;
-  // ASIGNARLE UN ID AL OBJETO
-  body.id = arrayCompleto.length + 1;
-
-  console.log(body);
-  ingresarNuevoObj(body);
-  res.redirect("/productos");
-  console.log(arrayCompleto.length);
+function ingresarProd(data) {
+  console.log(data);
+  ingresarNuevoObj(data);
 }
 
 function mostrarProductos(req, res, arrayCompleto) {

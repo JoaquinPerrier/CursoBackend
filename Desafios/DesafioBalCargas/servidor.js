@@ -179,6 +179,8 @@ io.on("connection", (socket) => {
   socket.on("addProduct", (data) => {
     data.id = arrayCompleto[arrayCompleto.length - 1].id + 1;
     arrayCompleto.push(data);
+    routes.ingresarProd(data);
+
     // LE PASAMOS AL FRONT EL NUEVO LISTADO DE PRODUCTOS
     io.sockets.emit("products", arrayCompleto);
   });
@@ -242,6 +244,10 @@ app.get(
 );
 
 app.get("/info", routes.mostrarDataServer);
+
+app.all("*", (req, res) => {
+  res.status(404).send("Error not found");
+});
 
 //CONEXION AL SERVIDOR
 /*httpServer.listen(args.puerto, () => {

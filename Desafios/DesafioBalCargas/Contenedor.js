@@ -7,9 +7,6 @@ class Contenedor {
 
   save = async (objetoAGuardar) => {
     try {
-      // OBTENEMOS OBJETOS PARA VER ULTIMO ID
-      let ultimaID;
-
       let productsParsed = await this.getAll();
       // console.log(productsParsed);
       //ultimaID = productsParsed.length + 1;
