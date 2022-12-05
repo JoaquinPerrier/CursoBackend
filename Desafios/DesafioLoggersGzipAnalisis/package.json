@@ -1,12 +1,44 @@
 {
-  "name": "desafiologgersgzipanalisis",
+  "name": "desafio",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "0x index.js",
+    "test": "node benchmark.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Ezequiel Bonasegla",
+  "license": "ISC",
+  "dependencies": {
+    "autocannon": "^7.10.0",
+    "bcrypt": "^5.0.1",
+    "compression": "^1.7.4",
+    "connect-mongo": "^4.6.0",
+    "connect-redis": "^6.1.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.0",
+    "express-session": "^1.17.3",
+    "fetch": "^1.1.0",
+    "firebase": "^9.10.0",
+    "firebase-admin": "^11.0.1",
+    "font-awesome": "^4.7.0",
+    "mongoose": "^6.6.1",
+    "mongoose-findorcreate": "^3.0.0",
+    "normalizr": "^3.6.2",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
+    "redis": "^4.3.1",
+    "socket.io": "^4.5.2",
+    "winston": "^3.8.2",
+    "yargs": "^17.6.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
+    "nodemon": "^2.0.19"
+  }
 }
