@@ -1,5 +1,4 @@
 const express = require("express");
-const { Router } = express;
 const app = express();
 const PORT = 8080;
 const routerProducts = require("./routesProducts");
