@@ -3,9 +3,12 @@ const Producto = require("../schemas/products");
 
 connectMG = async function () {
   try {
-    return await connect("mongodb://localhost:27017/TPecommerce", {
-      useNewUrlParser: true,
-    });
+    return await connect(
+      "mongodb+srv://jperrier:Gordonew1@cluster0.wumbvqn.mongodb.net/?retryWrites=true&w=majority",
+      {
+        useNewUrlParser: true,
+      }
+    );
   } catch (e) {
     console.log(e);
   }
@@ -19,14 +22,8 @@ if (!db) throw "can not connect to the db";
 let datos;
 async function consulta() {
   datos = await Producto.find({});
-  // console.log(datos);
 }
 consulta();
-/*const arrayProductos = async function () {
-  await Producto.find({});
-};*/
-
-// console.log(datos);
 
 exports.findProductsMongo = async function (req, res) {
   const { id } = req.params;
