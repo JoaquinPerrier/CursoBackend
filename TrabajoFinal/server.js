@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
 const PORT = 8080;
-const routerProducts = require("./routesProducts");
-const routerShopCart = require("./routesShopCart");
+const routerProducts = require("./routes/routesProducts");
+const routerShopCart = require("./routes/routesShopCart");
 
 // CONFIGURATION
 app.use(express.json());

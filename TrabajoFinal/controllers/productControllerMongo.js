@@ -1,8 +1,19 @@
 const productModelMongo = require("../models/productModelMongo");
 
 exports.product_list_mongo = async function (req, res) {
-  let productListMongo = await productModelMongo.findProductsMongo(req, res);
-  res.send({ message: "Status OK", productList: productListMongo });
+  try {
+    let productListMongo = await productModelMongo.findProductsMongo(req, res);
+
+    if (!productListMongo && req.params.id) {
+      throw new Error("No existe un producto con ese codigo");
+    }
+
+    res
+      .status(200)
+      .send({ message: "Status OK", productList: productListMongo });
+  } catch (error) {
+    res.status(401).send({ Error: error.message });
+  }
 };
 
 exports.create_product_mongo = async function (req, res) {

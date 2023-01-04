@@ -1,14 +1,14 @@
 const { connect } = require("mongoose");
 const Producto = require("../schemas/products");
+require("dotenv").config();
+
+console.log(process.env.MONGO_URL);
 
 connectMG = async function () {
   try {
-    return await connect(
-      "mongodb+srv://jperrier:Gordonew1@cluster0.wumbvqn.mongodb.net/?retryWrites=true&w=majority",
-      {
-        useNewUrlParser: true,
-      }
-    );
+    return await connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+    });
   } catch (e) {
     console.log(e);
   }
@@ -32,13 +32,9 @@ exports.findProductsMongo = async function (req, res) {
   if (id == null) {
     return datos;
   } else {
+    if (!datos) return datos;
     const found = datos.find((el) => el.id == id);
-    // IF FOUND IS EMPTY, WE ADVISE THE USER
-    if (found != null) {
-      return found;
-    } else {
-      return "PRODUCTO NO ENCONTRADO";
-    }
+    return found;
   }
 };
 

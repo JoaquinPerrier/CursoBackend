@@ -2,9 +2,9 @@ const express = require("express");
 const { Router } = express;
 const routerShopCart = Router();
 
-const cartController = require("./controllers/cartController");
-const cartControllerFB = require("./controllers/cartControllerFB");
-const productController = require("./controllers/productController");
+const cartController = require("../controllers/cartController");
+const cartControllerFB = require("../controllers/cartControllerFB");
+const productController = require("../controllers/productController");
 
 routerShopCart.post("/carrito", (req, res) => {
   // CREA CARRITO .txt

@@ -2,15 +2,10 @@ const express = require("express");
 const { Router } = express;
 const routerProducts = Router();
 
-//const productController = require("./controllers/productController");
-const productControllerMongo = require("./controllers/productControllerMongo");
+const productControllerMongo = require("../controllers/productControllerMongo");
 const ISADMIN = true;
 
 routerProducts.get("/products/:id?", (req, res) => {
-  // OBTIENE LOS PRODUCTOS DESDE .txt
-  //productController.product_list(req, res);
-
-  // OBTIENE LOS PRODUCTOS DESDE MONGO
   productControllerMongo.product_list_mongo(req, res);
 });
 
@@ -26,12 +21,6 @@ routerProducts.post(
       next();
     }
   },
-  // EDIT PARA .txt
-  /*(req, res) => {
-    productController.create_product(req, res);
-  }*/
-
-  // CREA PRODUCTO Y LO INSERTA A MONGO
   (req, res) => {
     productControllerMongo.create_product_mongo(req, res);
   }
@@ -49,12 +38,6 @@ routerProducts.put(
       next();
     }
   },
-  // PUT PARA .txt
-  /*(req, res) => {
-    productController.edit_product(req, res);
-  }*/
-
-  // EDITA PRODUCTO Y LO INSERTA EN MONGO
   (req, res) => {
     productControllerMongo.edit_product_mongo(req, res);
   }
@@ -72,12 +55,6 @@ routerProducts.delete(
       next();
     }
   },
-  // DELETE PARA .txt
-  /*(req, res) => {
-    productController.delete_product(req, res);
-  }*/
-
-  // ELIMINA PRODUCTO
   (req, res) => {
     productControllerMongo.delete_product_mongo(req, res);
   }
