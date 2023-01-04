@@ -2,8 +2,6 @@ const { connect } = require("mongoose");
 const Producto = require("../schemas/products");
 require("dotenv").config();
 
-console.log(process.env.MONGO_URL);
-
 connectMG = async function () {
   try {
     return await connect(process.env.MONGO_URL, {
@@ -23,9 +21,9 @@ let datos;
 async function consulta() {
   datos = await Producto.find({});
 }
-consulta();
 
 exports.findProductsMongo = async function (req, res) {
+  await consulta();
   const { id } = req.params;
 
   // IF THERE IS NOT AN ID, WE RETURN THE FULL LIST
@@ -41,6 +39,19 @@ exports.findProductsMongo = async function (req, res) {
 exports.createProductMongo = async function (req, res) {
   const { body } = req;
 
+  await consulta();
+
+  if (
+    !body.title ||
+    !body.description ||
+    !body.price ||
+    !body.code ||
+    !body.stock ||
+    !body.thumbnail
+  ) {
+    throw new Error("Faltan parametros");
+  }
+
   // ASIGNARLE UN ID AL OBJETO
   const productoNuevo = new Producto({
     title: body.title,
@@ -50,12 +61,11 @@ exports.createProductMongo = async function (req, res) {
     stock: Number(body.stock),
     thumbnail: body.thumbnail,
     timestamp: Date.now(),
-    id: datos.length + 1,
+    id: datos[datos.length - 1].id + 1,
   });
 
   const productoGuardado = await productoNuevo.save();
 
-  consulta();
   return datos;
 };
 
@@ -63,8 +73,7 @@ exports.editProductMongo = async function (req, res) {
   const { id } = req.params;
   const { body } = req;
 
-  //console.log(productoToChange);
-  // CAMBIAMOS TODO EL PRODUCTO POR EL QUE VIENE DESDE EL FRONT
+  await consulta();
 
   const productoModificado = await Producto.updateOne(
     { id: id },
@@ -87,6 +96,8 @@ exports.editProductMongo = async function (req, res) {
 
 exports.deleteProductMongo = async function (req, res) {
   const { id } = req.params;
+
+  await consulta();
 
   const productoBorrado = await Producto.deleteOne({ id: id });
 

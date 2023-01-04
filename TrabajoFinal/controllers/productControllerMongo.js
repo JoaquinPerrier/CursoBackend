@@ -17,8 +17,12 @@ exports.product_list_mongo = async function (req, res) {
 };
 
 exports.create_product_mongo = async function (req, res) {
-  let productAdded = await productModelMongo.createProductMongo(req, res);
-  res.send({ message: "Creation OK", productAdded: productAdded });
+  try {
+    let productAdded = await productModelMongo.createProductMongo(req, res);
+    res.status(200).send({ message: "Status OK", productAdded: productAdded });
+  } catch (error) {
+    res.status(401).send({ Error: error.message });
+  }
 };
 
 exports.edit_product_mongo = async function (req, res) {
