@@ -113,14 +113,21 @@ exports.deleteProductMongo = async function (req, res) {
   return datos;
 };
 
-/*exports.findProductForCart = function (req, res) {
+exports.findProductForCart = async function (req, res) {
+  await consulta();
   const { id_prod } = req.params;
 
-  const found = arrayCompleto.find((el) => el.id == id_prod);
+  const found = datos.find((el) => el.id == id_prod);
+
   // IF FOUND IS EMPTY, WE ADVISE THE USER
   if (found != null) {
-    return found;
+    const itemToAdd = {
+      title: found.title,
+      price: found.price,
+      code: found.code,
+    };
+    return itemToAdd;
   } else {
     return "PRODUCTO NO ENCONTRADO";
   }
-};*/
+};

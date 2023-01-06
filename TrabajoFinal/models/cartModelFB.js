@@ -129,7 +129,7 @@ exports.deleteProductFromCartFB = async function (req, res, productToAdd) {
     data: item.data(),
   }));
 
-  // BUSCAR EL ID DEL CARRITO A AGREGARLE EL PROD
+  // BUSCAR EL ID DEL CARRITO A BORRARLE EL PROD
   dataFormateada.forEach((item) => {
     item.data.id == id ? (fb_id = item.id) : item.data.id;
   });

@@ -41,7 +41,7 @@ exports.delete_product_mongo = async function (req, res) {
   }
 };
 
-/*exports.find_product_for_cart = async function (req, res) {
+exports.find_product_for_cart = async function (req, res) {
   let productFound = await productModelMongo.findProductForCart(req, res);
   return productFound;
-};*/
+};
