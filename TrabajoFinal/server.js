@@ -3,6 +3,7 @@ const app = express();
 const PORT = 8080;
 const routerProducts = require("./routes/routesProducts");
 const routerShopCart = require("./routes/routesShopCart");
+const routerUsers = require("./routes/routesUser");
 
 // CONFIGURATION
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use(cors(corsOptions));
 // ROUTES
 app.use("/api/", routerProducts);
 app.use("/api/", routerShopCart);
+app.use("/api/", routerUsers);
 
 // SERVER INFO
 const server = app.listen(PORT, () => {
