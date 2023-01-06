@@ -73,6 +73,12 @@ exports.editProductMongo = async function (req, res) {
   const { id } = req.params;
   const { body } = req;
 
+  console.log(id, body);
+
+  if (!id || !body) {
+    throw new Error("Faltan parametrossss");
+  }
+
   await consulta();
 
   const productoModificado = await Producto.updateOne(
@@ -91,7 +97,7 @@ exports.editProductMongo = async function (req, res) {
 
   await consulta();
 
-  return datos;
+  return productoModificado;
 };
 
 exports.deleteProductMongo = async function (req, res) {
