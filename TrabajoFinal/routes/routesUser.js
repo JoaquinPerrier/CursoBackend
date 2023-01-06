@@ -8,12 +8,12 @@ routerUsers.post("/login", (req, res) => {
   usersController.login(req, res);
 });
 
-routerUsers.post("/users", (_req, res) => {
+routerUsers.post("/users", (req, res) => {
   usersController.user_create_post(req, res);
 });
 
 routerUsers.post("/sendPasswordResetEmail", (req, res) => {
-  usersController.resetPassword(_req, res);
+  usersController.resetPassword(req, res);
 });
 
 module.exports = routerUsers;

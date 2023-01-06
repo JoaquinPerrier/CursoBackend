@@ -6,6 +6,7 @@ const {
   where,
   getDoc,
 } = require("firebase/firestore");
+const { db, auth } = require("../utils/firebase");
 const {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -32,7 +33,7 @@ exports.login = async function (email, password) {
 
 exports.createNewUser = async function (name, surname, email, password) {
   try {
-    console.log(name, surname, email, password);
+    console.log("aw");
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -45,6 +46,8 @@ exports.createNewUser = async function (name, surname, email, password) {
       email: email,
       firebase_uid: uid,
     });
+    console.log(userCredential);
+    console.log(newUserReference);
 
     const newUser = await getDoc(newUserReference);
     return newUser.data();
