@@ -73,8 +73,6 @@ exports.editProductMongo = async function (req, res) {
   const { id } = req.params;
   const { body } = req;
 
-  console.log(id, body);
-
   if (!id || !body) {
     throw new Error("Faltan parametrossss");
   }
@@ -106,6 +104,10 @@ exports.deleteProductMongo = async function (req, res) {
   await consulta();
 
   const productoBorrado = await Producto.deleteOne({ id: id });
+
+  if (!productoBorrado.deletedCount) {
+    throw new Error("Error: No se encontro producto a borrar");
+  }
 
   await consulta();
   return datos;

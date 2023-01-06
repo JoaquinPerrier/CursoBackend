@@ -33,8 +33,12 @@ exports.edit_product_mongo = async function (req, res) {
 };
 
 exports.delete_product_mongo = async function (req, res) {
-  let productList = await productModelMongo.deleteProductMongo(req, res);
-  res.send({ message: "Delete OK", productList: productList });
+  try {
+    let productList = await productModelMongo.deleteProductMongo(req, res);
+    res.send({ message: "Delete OK", productList: productList });
+  } catch (error) {
+    res.status(401).send({ Error: error.message });
+  }
 };
 
 /*exports.find_product_for_cart = async function (req, res) {
