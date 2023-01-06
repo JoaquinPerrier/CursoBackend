@@ -1,6 +1,12 @@
 # Ecommerce Back-End Coderhouse
 
+**Trabajo practico final del curso de desarrollo Backend de CoderHouse**
+
 **END POINTS:**<br>
+ENDPOINTS DE USUARIOS:
+- url.com/api/users *POST* Se registra un nuevo usuario.
+- url.com/api/login *POST* Se validan las credenciales de un nuevo usuario. 
+
 ENDPOINTS DE PRODUCTOS:
 - url.com/api/products/:id? *GET* Obtiene el producto indicado con el id. 
 - url.com/api/products *POST* Guarda un producto. 
