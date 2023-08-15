@@ -38,3 +38,13 @@ for (let i = 0; i < scrambledArray.length; i++) {
 }
 
 console.log(orderlyArray)*/
+
+let a = 32;
+
+function sumarArafue() {
+  a += 30;
+}
+
+sumarArafue();
+
+console.log(a);
